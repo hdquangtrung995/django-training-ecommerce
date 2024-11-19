@@ -1,0 +1,32 @@
+{% with topHeaderContainerCss="py-2.5 bg-black text-[var(--color-header)]" innerContainerCss="mx-auto max-w-7xl" logoCss="object-contain object-center" buttonSearchCss="absolute right-[2px] top-[2px] bg-black w-20 h-9 rounded-md" %}
+
+<header id="nav-header" class="">
+    <div class="{{topHeaderContainerCss}}">
+        <div class="{{innerContainerCss}}">
+            <div class="flex flex-row justify-between px-4">
+                {% include "header/navigation/navigation-mobile.html" %}
+                <div>
+                    <a href="{% url 'ecommerce:home_page' %}">
+                        <img src="https://file.hstatic.net/1000253775/file/logo_no_bf-05_3e6797f31bda4002a22464d6f2787316.png"
+                            alt="" class="{{logoCss}}" height="35" width="130" />
+                    </a>
+                </div>
+                <div class="hidden md:block w-full max-w-96 my-auto">
+                    <div class="relative w-full ">
+                        <form action="" class="">
+                            <div class="">
+                                <input type="text" class="h-10 w-full p-2 rounded-md" placeholder="what are you looking for?" />
+                            </div>
+                            <button class="{{ buttonSearchCss }} "><img class="align-middle mx-auto" width="24" height="24" src="//theme.hstatic.net/1000253775/1001291562/14/search-icon.svg?v=332" alt="search"></button>
+                        </form>
+                    </div>
+                </div>
+                {% include "header/info/index.html" %}
+            </div>
+        </div>
+    </div>
+
+    {% include "header/navigation/navigation-desktop.html" %}
+</header>
+{% endwith %}
+{% comment %} <div></div> {% endcomment %}

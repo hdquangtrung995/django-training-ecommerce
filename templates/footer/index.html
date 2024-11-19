@@ -1,0 +1,101 @@
+
+{% with responseiveFooterCss="w-full md:max-w-[80%] md:mx-auto" containerCss="pt-8 pb-6" store=store_context guidelines=guideline_context %}
+
+<footer class="bg-[var(--bgfooter)] text-[var(--colorfooter)]">
+    <section class="{{responseiveFooterCss}} bg-[var(--bgfooter)] text-[var(--colorfooter)] flexRowCenterBetween py-6">
+        <h2 class="uppercase text-[1rem]">Register your email</h2>
+
+        <div class="w-full md:max-w-[450px]">
+            <form>
+                <div class="flexRow items-center">
+                    <div class="w-full h-11">
+                        <input class="w-full h-full" type="text" name="fname">
+                    </div>
+                    <button class="flexRowCenter gap-x-2 px-5 border solid self-stretch">
+                        <i class="fa fa-paper-plane-o"></i>
+                        <span class="uppercase text-sm">register</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <ul class="flexRowCenter gap-x-2">
+                {% for media in store.media_link %}
+                    <li class="w-8 h-8 rounded-sm" style="{% if media.bgColor %} background-color: {{media.bgColor}}; {% endif %}"><a href="{{media.link}}"><img src="{{media.iconImg}}"></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <hr class="h-[1px] border-t-0 bg-white {{responseiveFooterCss}}" />
+
+    <div class="{{containerCss}} {{responseiveFooterCss}} flexRow gap-x-4">
+        <section class="flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1rem]">about</h2>
+            <div>
+                <span>{{store.description}}</span>
+            </div>
+            <div class="">
+                <i class="fa fa-mobile-phone"></i>
+                <a href="tel:+{{store.phone}}">+{{store.phone}}</a>
+            </div>
+            <div class="">
+                <i class="fa fa-envelope"></i>
+                <a rel="nofollow" href="mailto:{{store.email}}">+{{store.email}}</a>
+            </div>
+            <div class="">
+                <i class="fa fa-clock-o"></i>
+                <span>Opening - Closing: {{store.open_at}} - {{store.close_at}}</span>
+            </div>
+            <div class="">
+                <i class="fa fa-headphones"></i>
+                <span>Consultants respond to messages until 24:00 (Every day)</span>
+            </div>
+
+            <div>
+                <a rel="nofollow" href="http://online.gov.vn/Home/WebDetails/121880"><img class=" ls-is-cached lazyloaded" loading="lazy" width="160" height="80" src="https://file.hstatic.net/200000397757/file/dathongbao_48067cd02fae41b68bf0294777c39c94_compact.png"></a>
+            </div>
+            <div>
+                <a href="https://www.dmca.com/Protection/Status.aspx?ID=9049de26-d97b-48dc-ab97-1e5fcb221fba&amp;refurl=https://160store.com/#" title="DMCA.com Protection Status" class="dmca-badge"> <img src="https://images.dmca.com/Badges/dmca_protected_16_120.png?ID=9049de26-d97b-48dc-ab97-1e5fcb221fba" alt="DMCA.com Protection Status"></a>
+            </div>
+        </section>
+
+        <section class="flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1rem]">policy</h2>
+            <ul class="list-disc flexCol gap-y-4">
+                {% for guideline in guidelines %}
+                    <li><a href="{{guideline.slug}}">{{guideline.label}}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1rem]">Branch</h2>
+            <ul class="flexCol gap-y-4">
+                <li class="flexCol gap-y-1">
+                    <div class="flexRow items-center gap-x-4">
+                        <i class="fa fa-map-marker fa-2x"></i>
+                        <span>Ho Chi Minh (10)</span>
+                    </div>
+                    <address>297/3 Tô Hiến Thành, Phường 13, Quận 10, TP Hồ Chí Minh</address>
+                </li>
+            </ul>
+        </section>
+
+        <section class="flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1rem]">Payment methods</h2>
+            <ul class="flexRow gap-x-4">
+                <img class=" ls-is-cached lazyloaded" loading="lazy" src="https://file.hstatic.net/1000253775/file/shoppy_new_18600e8ad9f64537b7e31d009457e215.jpg" width="50px" height="30px" alt="Image Spay">
+                <img class=" ls-is-cached lazyloaded" loading="lazy" src="https://file.hstatic.net/1000253775/file/vnpay_new_ec21c03b2f4c49689d180c8a485c8d5b.jpg" width="50px" height="30px" alt="Image VNPay">
+                <img class=" ls-is-cached lazyloaded" loading="lazy" src="https://file.hstatic.net/1000253775/file/cod_new_2316cf8e29bd4a858810a3d7b9eb39e4.jpg" width="50px" height="30px" alt="Image Cod">
+            </ul>
+        </section>
+    </div>
+</footer>
+
+{% endwith %}
+
+{% comment %} <section></section> <div></div> {% endcomment %}
+
+

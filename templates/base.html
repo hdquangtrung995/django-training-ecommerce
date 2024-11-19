@@ -1,0 +1,36 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>{% block title %} Test App {% endblock title %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="description" content="Description" />
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" />
+	{% tailwind_css %}
+
+	
+	<link rel="preload" as="style" href="{% static 'css/root.css' %}">
+	<link rel="stylesheet" as="style" type="text/css" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+	{% block css_file %}{% endblock css_file %}
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</head>
+
+<body>
+	<main id="root">
+		{% include "header/index.html" %}
+
+		{% block body-content %}<div>content</div>{% endblock body-content %}
+
+		{% include "footer/index.html" %}
+	</main>
+	
+</body>
+
+</html>

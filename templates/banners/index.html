@@ -1,0 +1,33 @@
+{% load static %}
+{% with bannerContainerCss="mt-4" slickButtonCss="absolute z-40 top-1/2 text-white hover:text-black" slickNextCss="right-5" slickPrevCss="left-5" %}
+
+<section class="{{bannerContainerCss}}">
+    
+    <div class="relative m-auto md:max-w-[80%]">
+        {% if list_banners|length > 1 %}
+            <button id="slickPrev" class="{{slickButtonCss}} {{slickPrevCss}}" style="transform: translatey(-50%);">
+                <i class="fa fa-angle-left fa-4x"></i>
+            </button>
+        {% endif %}
+        
+        <div class="myBanner">
+            {% for banner in list_banners %}
+                <div>
+                    <a href="{% if banner.link %} {{banner.link}} {% else %}#{% endif %}" alt=""><img src="{{banner.img}}" alt=""></a>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if list_banners|length > 1 %}
+            <button id="slickNext" class="{{slickButtonCss}} {{slickNextCss}}" style="transform: translatey(-50%);">
+                <i class="fa fa-angle-right fa-4x"></i>
+            </button>
+        {% endif %}
+    <div>
+</section>
+
+{% endwith %}
+
+<script src="{% static 'js/banner/index.js' %}"></script>
+
+{% comment %} <div><div> {% endcomment %}

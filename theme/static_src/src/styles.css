@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bgheader: #000000;
+    --color-header: #ffffff;
+    --color-menu: #000000;
+    --bgshop: #c92921;
+    --bg-button: #000000;
+    --color-button: #ffffff;
+    --colorshop: #000000;
+    --colorshophover: #000000;
+    --bgfooter: #000000;
+    --colorfooter: #ffffff;
+    --colorbgmenumb: #000000;
+    --colortextmenumb: #ffffff;
+    --bgflashsale: #BE2D23;
+    --bg-button-add-to-cart: #000000;
+    --bgprefooter: #202020;
+    --height-head: 60px;
+    --link-category-hover: #FB8500;
+    --body-bg-color: #f5f5f5;
+
+
+    --imgselect: url('https://file.hstatic.net/200000525917/file/ico-select_c577a364ec074c9b9cd07a446e6a1a2c.svg');
+    --imgsort: url('https://file.hstatic.net/200000525917/file/sort-az_ce83a7d22f214b68bc6aa586b6ac3d34.svg');
+    --bg-filter: url('https://file.hstatic.net/200000525917/file/filter_415f49821dc841d3add47c3d0abed6b8.svg');
+    --typeimageproduct: cover;
+    --bgsubcribe: url('https://file.hstatic.net/1000253775/file/popup_160_acb327fd24764e55860ebf719deb17ae.jpg');
+    --iframe-1: url('https://file.hstatic.net/1000253775/file/frame_new.png');
+    --iframe-2: url('https://file.hstatic.net/1000253775/file/frame-02_6ed90fa292f744b2ba3eac721478c9a3.png');
+    --iframe-3: url('https://file.hstatic.net/1000253775/file/chuan_gu_basic_frame_87794492128d45e0b1b273eddbbb3f2f.png');
+}
+
+body {
+    font-family: "JetBrains Mono";
+    font-size: 0.875rem;
+    color: var(--colorshop);
+    background-color: var(--body-bg-color);
+}
+
+button {
+    @apply text-center
+}
+
+input {
+    @apply text-black focus-visible:outline-none
+}
+
+/* COMMON USE */
+
+.flexRow {
+    @apply flex flex-row
+}
+
+.flexRowCenter {
+    @apply flex flex-row justify-center items-center;
+}
+
+.flexRowCenterBetween {
+    @apply flex flex-row justify-between items-center;
+}
+
+.flexRowBetween {
+    @apply flex flex-row justify-between;
+}
+
+.flexCol {
+    @apply flex flex-col
+}
+
+.flexColCenter {
+    @apply flex flex-col justify-center items-center;
+}
+
+.flexColCenterBetween {
+    @apply flex flex-col justify-between items-center;
+}
+
+/* HEADERs */
+
+.navigationHover:hover>ul[data-isfirst-level="True"] {
+    @apply opacity-100 visible mt-0;
+}
+
+.navigationHover:hover>ul[data-isfirst-level="False"] {
+    @apply left-full top-0 visible opacity-100 ml-0;
+}
+
+.categoryLink {
+    @apply relative uppercase font-bold px-[15px] py-[12px]
+}
+
+.subMenu {
+    @apply pt-0 absolute z-50 min-w-40 transition-all ease-in duration-300 mt-[30px] opacity-0 invisible bg-white shadow-xl
+}
+
+.subMenuNested {
+    @apply left-full pt-0 absolute z-50 min-w-40 transition-all ease-in duration-300 ml-[30px] opacity-0 invisible bg-white shadow-xl;
+}
+
+.openBurgerItem {
+    max-height: 500px !important;
+}
+
+.fullHeight {
+    max-height: 100% !important;
+}
+
+/* @layer utilities {} */
+/* "dev": "cross-env NODE_ENV=development tailwindcss --postcss -i ./src/styles.css -o ../static/css/dist/styles.css -w", */
+/* "build:tailwind": "cross-env NODE_ENV=production tailwindcss --postcss -i ./src/styles.css -o ../static/css/dist/styles.css --minify", */

@@ -1,0 +1,33 @@
+{% load static %}
+{% with menuContainer="absolute top-0 left-0 z-50 w-full h-full overflow-scroll" backdropMenu="bg-[var(--colorshop)] opacity-95 absolute top-0 left-0 z-40 w-full h-full" %}
+
+<div class="block md:hidden">
+    <div class="flexRowCenter">
+        <button id="openBurger" class="btn-menu-mb">
+            <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div id="menuBurger" class="{{menuContainer}} transition-all duration-500 ease-in-out max-h-0">
+        <div class="flex flex-col">
+            <div class="mx-auto">
+                <a href="{% url 'ecommerce:home_page' %}">
+                    <img src="https://file.hstatic.net/1000253775/file/logo_no_bf-05_3e6797f31bda4002a22464d6f2787316.png"
+                        alt="" class="h-14 {{logoCss}}" />
+                </a>
+            </div>
+
+            <ul class="p-4 flexCol gap-y-10">
+                {% include "header/navigation/navigations-mobile-recursive.html" with menu_list=navigations_context first_level=True %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="menuBurgerBackDrop" class="{{backdropMenu}} transition-all duration-500 ease-in-out max-h-0"></div>
+    <button id="closeBurger" class="absolute top-0 right-0 text-white z-50 mt-4 mr-4 hidden"><i class="fa fa-remove fa-2x"></i></button>
+</div>
+
+{% endwith %}
+<script src="{% static 'js/header/toggle-burger.js' %}"></script>
+
+{% comment %} <div></div> {% endcomment %}

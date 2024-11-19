@@ -1,0 +1,27 @@
+{% with angleDown="fa-rotate-180" %}
+{% with subMenuHoverVerticalCss="group-hover/1:opacity-100 group-hover/1:visible group-hover/1:mt-0" subMenuHoverHorizontalCss="left-full top-0" %}
+
+
+
+{% for menu in menu_list %}
+    <li class="navigationHover categoryLink">
+        <a class="group/link" href="{{menu.name_slug}}">
+            <span class="group-hover/link:text-[var(--link-category-hover)]">{{menu.display_name}}</span> 
+            {% if menu.sub_category %}
+                <i class="fa fa-angle-down fa-lg group-hover/link:text-[var(--link-category-hover)]"></i>
+            {% endif %}
+        </a>
+        {% if menu.sub_category and first_level is True %}
+            <ul class="subMenu" data-isfirst-level="{{first_level}}">
+                {% include "header/navigation/navigations-desktop-recursive.html" with menu_list=menu.sub_category first_level=False %}
+            </ul>
+            {% elif not first_level %}
+            <ul class="subMenuNested" data-isfirst-level="{{first_level}}">
+                {% include "header/navigation/navigations-desktop-recursive.html" with menu_list=menu.sub_category first_level=False %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
+
+{% endwith %}
+{% endwith %}

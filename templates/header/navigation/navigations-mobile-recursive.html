@@ -1,0 +1,26 @@
+{% with subMenuBurgerListItem="transition-all duration-500 ease-in-out max-h-0 overflow-hidden pl-4 gap-y-4 " %}
+
+{% for menu in menu_list %}
+    <li class="relative categoryItem">
+        <div class="flexRowCenterBetween">
+            <a class="w-1/2" href="{{menu.name_slug}}">
+            <span class="uppercase w-1/2">
+                {{menu.display_name}}
+            </span>
+            </a>
+            {% if menu.sub_category %}
+                <button class="dropdown-burger-button w-full flex justify-end"><i class="fa fa-plus"></i></button>
+            {% else %}
+            {% endif %}
+        </div>
+
+        {% if menu.sub_category %}
+            <ul class="{{subMenuBurgerListItem}} flexCol" data-isfirst-level="{{first_level}}">
+                {% include "header/navigation/navigations-mobile-recursive.html" with menu_list=menu.sub_category first_level=False %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
+
+{% endwith %}
+{% comment %} fa-minus {% endcomment %}
