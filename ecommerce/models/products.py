@@ -22,6 +22,9 @@ class EcomProducts(UUIDBaseModel, TimeStampedModel):
     is_active = models.BooleanField(blank=True, default=False)
     galleries = ArrayField(models.URLField(max_length=255), size=MAXIMUM_GALLERY_ITEMS)
     category = models.ForeignKey(EcomCategory, on_delete=models.SET_NULL, null=True)
+    promotions = models.ManyToManyField(
+        EcomPromotion, through="EcomProductPromotionExtra", related_name="products"
+    )
 
     class Meta:
         db_table = "ecom_products"
@@ -47,14 +50,14 @@ class EcomProducts(UUIDBaseModel, TimeStampedModel):
         )
 
 
-class EcomProductPromotionJoinTable(models.Model):
+class EcomProductPromotionExtra(models.Model):
     product = models.ForeignKey(EcomProducts, on_delete=models.CASCADE)
     promotion = models.ForeignKey(EcomPromotion, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "ecom_product_promotion_join_table"
-        verbose_name = "Product Promotion Join Table"
-        verbose_name_plural = "Product Promotion Join Table"
+        db_table = "ecom_product_promotion_extra"
+        verbose_name = "Product Promotion Extra Info"
+        verbose_name_plural = "Product Promotion Extra Info"
 
     def __str__(self):
-        return f"{self.product} (id: {self.promotion})"
+        return f"{self.product} {self.promotion}"

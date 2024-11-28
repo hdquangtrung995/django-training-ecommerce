@@ -1,11 +1,11 @@
 
-{% with responseiveFooterCss="w-full md:max-w-[80%] md:mx-auto" containerCss="pt-8 pb-6" store=store_context guidelines=guideline_context %}
+{% with responseiveFooterCss="w-full md:max-w-[80%] md:mx-auto" store=store_context guidelines=guideline_context %}
 
 <footer class="bg-[var(--bgfooter)] text-[var(--colorfooter)]">
-    <section class="{{responseiveFooterCss}} bg-[var(--bgfooter)] text-[var(--colorfooter)] flexRowCenterBetween py-6">
-        <h2 class="uppercase text-[1rem]">Register your email</h2>
+    <section class="p-6 bg-[var(--bgfooter)] text-[var(--colorfooter)] flexRowCenterBetweenDesktop md:py-6 {{responseiveFooterCss}}">
+        <h2 class="text-center md:text-left uppercase text-[1.275rem]">Register your email</h2>
 
-        <div class="w-full md:max-w-[450px]">
+        <div class="py-4 md:py-0 w-full md:max-w-[450px]">
             <form>
                 <div class="flexRow items-center">
                     <div class="w-full h-11">
@@ -30,9 +30,9 @@
 
     <hr class="h-[1px] border-t-0 bg-white {{responseiveFooterCss}}" />
 
-    <div class="{{containerCss}} {{responseiveFooterCss}} flexRow gap-x-4">
+    <div class="px-8 pt-8 pb-6 flexRowDesktop md:gap-x-8 md:px-0 {{responseiveFooterCss}}">
         <section class="flexCol gap-y-4">
-            <h2 class="uppercase font-bold text-[1rem]">about</h2>
+            <h2 class="uppercase font-bold text-[1.275rem]">about</h2>
             <div>
                 <span>{{store.description}}</span>
             </div>
@@ -61,8 +61,8 @@
             </div>
         </section>
 
-        <section class="flexCol gap-y-4">
-            <h2 class="uppercase font-bold text-[1rem]">policy</h2>
+        <section class="mt-4 md:mt-0 flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1.275rem]">policy</h2>
             <ul class="list-disc flexCol gap-y-4">
                 {% for guideline in guidelines %}
                     <li><a href="{{guideline.slug}}">{{guideline.label}}</a></li>
@@ -70,8 +70,8 @@
             </ul>
         </section>
 
-        <section class="flexCol gap-y-4">
-            <h2 class="uppercase font-bold text-[1rem]">Branch</h2>
+        <section class="mt-4 md:mt-0 flexCol gap-y-4">
+            <h2 class="uppercase font-bold text-[1.275rem]">Branch</h2>
             <ul class="flexCol gap-y-4">
                 <li class="flexCol gap-y-1">
                     <div class="flexRow items-center gap-x-4">
@@ -84,7 +84,7 @@
         </section>
 
         <section class="flexCol gap-y-4">
-            <h2 class="uppercase font-bold text-[1rem]">Payment methods</h2>
+            <h2 class="uppercase font-bold text-[1.275rem]">Payment methods</h2>
             <ul class="flexRow gap-x-4">
                 <img class=" ls-is-cached lazyloaded" loading="lazy" src="https://file.hstatic.net/1000253775/file/shoppy_new_18600e8ad9f64537b7e31d009457e215.jpg" width="50px" height="30px" alt="Image Spay">
                 <img class=" ls-is-cached lazyloaded" loading="lazy" src="https://file.hstatic.net/1000253775/file/vnpay_new_ec21c03b2f4c49689d180c8a485c8d5b.jpg" width="50px" height="30px" alt="Image VNPay">

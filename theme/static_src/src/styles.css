@@ -21,6 +21,8 @@
     --height-head: 60px;
     --link-category-hover: #FB8500;
     --body-bg-color: #f5f5f5;
+    --bg_button_add_to_cart: #000000;
+    --bg_button: #000000;
 
 
     --imgselect: url('https://file.hstatic.net/200000525917/file/ico-select_c577a364ec074c9b9cd07a446e6a1a2c.svg');
@@ -48,18 +50,35 @@ input {
     @apply text-black focus-visible:outline-none
 }
 
-/* COMMON USE */
+/* COMMON USE FLEX STYLING */
 
 .flexRow {
     @apply flex flex-row
 }
 
+.flexRowDesktop {}
+
 .flexRowCenter {
     @apply flex flex-row justify-center items-center;
 }
 
+.flexRowHorizontalCenter {
+    @apply flex flex-row items-center;
+}
+
 .flexRowCenterBetween {
     @apply flex flex-row justify-between items-center;
+}
+
+.flexRowCenterBetweenDesktop {}
+
+@media (min-width: 768px) {
+    .flexRowCenterBetweenDesktop {
+        @apply flex flex-row justify-between items-center;
+    }
+    .flexRowDesktop {
+        @apply flex flex-row
+    }
 }
 
 .flexRowBetween {
@@ -78,7 +97,7 @@ input {
     @apply flex flex-col justify-between items-center;
 }
 
-/* HEADERs */
+/* COMMON USE */
 
 .navigationHover:hover>ul[data-isfirst-level="True"] {
     @apply opacity-100 visible mt-0;
@@ -106,6 +125,58 @@ input {
 
 .fullHeight {
     max-height: 100% !important;
+}
+
+.shadow {
+   box-shadow: 0px 0px 4px 2px #ccc;
+}
+
+.borderRightStyleDashed {
+    border-right-style: dashed;
+}
+
+.mainHeaderContainerResponsive {
+    @apply mx-auto max-w-7xl;
+}
+
+.mainBodyContenContainerResponsive {
+    @apply m-auto md:max-w-[80%];
+}
+
+.slick-dots {
+    @apply flex justify-center gap-x-4;
+}
+
+.slick-dots button {
+    @apply border border-black transition-all rounded-full bg-transparent w-2 h-2 text-[0];
+}
+
+.slick-dots li.slick-active button {
+    @apply bg-[--bg_button]
+}
+
+.slick-disabled {
+    display: none !important;
+}
+
+.seeAllButton {
+    @apply border uppercase self-center bg-black px-4 py-2 rounded-lg text-white hover:text-black hover:bg-white hover:border hover:border-black;
+}
+
+.titleH1 {
+    @apply text-sm ml-2 font-bold uppercase md:text-2xl pl-2 border-l-4 border-l-black md:ml-0
+}
+
+.slickButtonCss {
+    @apply absolute z-40 top-1/2 text-white hover:text-black;
+}
+
+.slickNextCss {
+    @apply right-5;
+}
+
+.slickPrevCss {
+    @apply left-5;
 }
 
 /* @layer utilities {} */

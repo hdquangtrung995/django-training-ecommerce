@@ -1,0 +1,44 @@
+{% with tabButtonCss="border rounded-lg py-[12px] px-4 uppercase hover:border-black" tabActiveCss="bg-black text-white" %}
+
+<section class="{{responsiveCss}}">
+    <div>
+        <div class="flex flex-row justify-evenly text-xs md:text-sm md:block tabNewProductButton">
+            <button data-target="#newProductsTab" class="{{tabButtonCss}} {{tabActiveCss}}"><strong>new products everyday</strong></button>
+            <button data-target="#outletNovemberTab" class="{{tabButtonCss}}"><strong>outlet this november</strong></button>
+        </div>
+        <div id="newProductsTab" class="newProductTabContent py-4 flexCol gap-y-4">
+            <ul class="grid grid-cols-2 md:grid-cols-5 gap-[0.725rem]">
+                {% for product in new_products %}
+                    <li class="md:block {% if forloop.counter > 4 %}hidden{% endif %}">{% include "ecommerce/components/card/index.html" with data=product %}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="#" class="seeAllButton"><strong>see all »</strong></a>
+        </div>
+        <div id="outletNovemberTab" class="newProductTabContent py-4 hidden gap-y-4">
+            <ul class="grid grid-cols-2 md:grid-cols-5 gap-[0.725rem]">
+                {% for product in this_month %}
+                    <li class="md:block {% if forloop.counter > 4 %}hidden{% endif %}">{% include "ecommerce/components/card/index.html" with data=product %}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="#" class="seeAllButton"><strong>see all »</strong></a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".tabNewProductButton button").click(function(){
+                $(".tabNewProductButton button").removeClass("{{tabActiveCss}}");
+                $(".newProductTabContent").removeClass("flexCol").addClass('hidden');
+
+                $(this).addClass("{{tabActiveCss}}");
+                $($(this).attr("data-target")).removeClass("hidden").addClass("flexCol");
+            });
+        })
+    </script>
+</section>
+
+{% endwith %}
+
+{% comment %} <div></div> {% endcomment %}

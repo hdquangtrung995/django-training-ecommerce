@@ -1,0 +1,121 @@
+{% with slickButtonCss="" slickNextCss="right-5" slickPrevCss="left-5" countDownCss="text-xs bg-white p-1 min-w-16 h-14 rounded-lg gap-y-1" %}
+
+<section class="{{responsiveCss}}">
+    <div class="shadow rounded-xl bg-[#E0E0E0] p-4 my-8 flexCol">
+        <div class="flexRowBetween">
+            <div class="flexRow">
+                <img class="mr-2 mt-2 h-max" src="https://file.hstatic.net/1000253775/file/flash_c1195bb7597344909c3a855990d45510.png" width="20" height="20" >
+                <h1 class="uppercase font-bold text-xl">flash sale</h1>
+            </div>
+            <ul class="flexRow gap-x-4">
+                <li class="flexColCenter {{countDownCss}}">
+                    <strong id="flashsaleHour">111</strong>
+                    <div>Hour(s)</div>
+                </li>
+                <li class="flexColCenter {{countDownCss}}">
+                    <strong id="flashsaleMinute">60</strong>
+                    <div>Minute(s)</div>
+                </li>
+                <li class="flexColCenter {{countDownCss}}">
+                    <strong id="flashsaleSecond">11</strong>
+                    <div>Second</div>
+                </li>
+            </ul>
+        </div>
+        <div class="my-8 md:px-8 relative">
+            <button id="slickPrevFlashsale" class="slickButtonCss slickPrevCss" style="transform: translatey(-50%);">
+                <i class="fa fa-angle-left fa-4x"></i>
+            </button>
+            <ul class="flashsaleslick">
+                {% for product in flashsale_products %}
+                    <li class="p-2 md:p-4 h-full">{% include "ecommerce/components/card/index.html" with data=product discount_value=product.promotions.discount_variant.discount_value discount_type=product.promotions.discount_variant.discount_type %}</li>
+                {% empty %}
+                    <div>hello</div>
+                {% endfor %}
+            </ul>
+
+            <div class="flashsaleDots"></div>
+            <button id="slickNextFlashsale" class="slickButtonCss slickNextCss" style="transform: translatey(-50%);">
+                <i class="fa fa-angle-right fa-4x"></i>
+            </button>
+        </div>
+
+        <a href="#" class="seeAllButton"><strong>see all »</strong></a>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.flashsaleslick').slick({
+                lazyLoad: 'ondemand',
+                autoplay: false,
+                autoplaySpeed: 0,
+                arrows: true,
+                prevArrow: $('#slickPrevFlashsale'),
+                nextArrow: $('#slickNextFlashsale'),
+                infinite: false,
+                slidesToShow: 5,
+                dots: true,
+                appendDots: $(".flashsaleDots"),
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                        }
+                    }
+                ]
+            });
+
+            const targetDateStr = '{{flashsale_products.end_date}}';
+            const targetDate = new Date(targetDateStr);
+
+            let prevHour = 0;
+            let prevMinute = 0;
+            let prevSecond = 0;
+
+            function updateCountdown() {
+                const now = new Date();
+                const timeDifference = targetDate - now; 
+
+                if (timeDifference > 0) {
+                    const totalHours = Math.floor(timeDifference / (1000 * 60 * 60))
+                    const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                    prevHour = totalHours
+                    prevMinute = minutes
+                    prevSecond = seconds
+
+                    // Update individual elements
+                    if (totalHours !== prevHour || prevHour === 0) {
+                        document.getElementById("flashsaleHour").innerText = totalHours.toString().padStart(2, '0');
+                    }
+                    if (minutes !== prevMinute || prevMinute === 0) {
+                        document.getElementById("flashsaleMinute").innerText = minutes.toString().padStart(2, '0');
+                    }
+                    if (totalHours !== prevSecond || prevSecond === 0) {
+                        document.getElementById("flashsaleSecond").innerText = seconds.toString().padStart(2, '0');
+                    }
+                } else {
+                    // Stop the timer and show "00:00:00"
+                    prevHour = 0;
+                    prevMinute = 0;
+                    prevSecond = 0;
+                    document.getElementById("flashsaleHour").innerText = "00";
+                    document.getElementById("flashsaleMinute").innerText = "00";
+                    document.getElementById("flashsaleSecond").innerText = "00";
+                    clearInterval(intervalId);
+                }
+            }
+
+            const intervalId = setInterval(updateCountdown, 1000);
+            // Initial call to display the countdown immediately
+            updateCountdown();
+        })
+    </script>
+
+</section>
+
+
+{% endwith %}
+{% comment %} <div></div> {% endcomment %}

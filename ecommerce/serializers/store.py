@@ -1,24 +1,15 @@
 from rest_framework import serializers
 from ecommerce.models import EcomStore, EcomStoreGuideline
+from ecommerce.serializers.dynamic import DynamicFieldsModelSerializer
 
 
-class StoreSerializer(serializers.ModelSerializer):
+class BaseStoreSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = EcomStore
-        fields = [
-            "name",
-            "email",
-            "description",
-            "phone",
-            "banners",
-            "media_link",
-            "logo",
-            "open_at",
-            "close_at",
-        ]
+        fields = "__all__"
 
 
-class StoreGuideLineSerializer(serializers.ModelSerializer):
+class StoreGuideLineSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = EcomStoreGuideline
-        fields = ["label", "banner", "content", "slug"]
+        fields = "__all__"

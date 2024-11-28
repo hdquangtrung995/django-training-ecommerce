@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}
+My Home
+{% endblock title %}
+
+{% block body-content %}
+
+<div class="mainBodyContenContainerResponsive">
+    {% include "banners/index.html" %}
+    {% include "ecommerce/page/home/promotions.html" with promotions=list_of_promotions %}
+    {% include "ecommerce/page/home/flashsale.html" with flashsale_products=flashsale_products %}
+    {% include "ecommerce/page/home/new_products.html" with new_products=new_products this_month=recently_added_this_month %}
+    {% include "ecommerce/page/home/by_categories.html" with products_by_category=products_by_category %}
+</div>
+
+{% endblock body-content %}

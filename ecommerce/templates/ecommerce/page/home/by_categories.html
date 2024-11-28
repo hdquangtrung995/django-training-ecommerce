@@ -1,0 +1,19 @@
+{% with local_var=context_var %}
+
+<section class="my-4 {{responsiveCss}}">
+    <div class="grid grid-cols-2 gap-4">
+        {% for group_product in products_by_category %}
+            <div class="bg-white rounded-xl p-2">
+                <div class="flexRowBetween my-2">
+                    <h1 class="titleH1">{{group_product.label}}</h1>
+                    <a href="{{group_product.slug}}" class="hidden md:block seeAllButton mr-2"><strong>see all »</strong></a>
+                </div>
+                {% include "ecommerce/components/slider_card/index.html" with uniqueIdentifier=group_product.label products=group_product.data %}
+
+                <div class="text-center"><a href="{{group_product.slug}}" class="inline-block md:hidden my-4 mx-auto seeAllButton"><strong>see all »</strong></a></div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endwith %}

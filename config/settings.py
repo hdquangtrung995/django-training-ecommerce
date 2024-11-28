@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "tailwind",
     "theme",
     "django_browser_reload",
     "rest_framework",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -142,3 +145,11 @@ TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+MY_WEBAPP_SETTING = {
+    "NUMBER_OF_RECORD_FOR_FLASHSALE": 8,
+    "NUMBER_OF_RECORD_FOR_HOME_PAGE_PROMOTION": 4,
+    "NUMBER_OF_NEW_PRODUCTS_EVERYDAY_FOR_HOMEPAGE": 10,
+    "NUMBER_OF_NEW_PRODUCTS_EVERYDAY_IN_EACH_CATEGORY": 5,
+    "NUMBER_OF_NEW_PRODUCTS_THIS_MONTH_FOR_HOMEPAGE": 8,
+}

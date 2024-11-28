@@ -1,0 +1,45 @@
+{% with identifier=uniqueIdentifier|cut:' ' %}
+
+<div class="relative">
+    <button id="{{identifier}}-slickPrevbutton" class="slickButtonCss slickPrevCss" style="transform: translatey(-50%);">
+        <i class="fa fa-angle-left fa-4x"></i>
+    </button>
+    <ul class="{{identifier}}">
+        {% for product in products %}
+            <li>{% include "ecommerce/components/card/index.html" with data=product discount_value=product.promotions.discount_variant.discount_value discount_type=product.promotions.discount_variant.discount_type %}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="{{identifier}}-flashsaleDots"></div>
+    <button id="{{identifier}}-slickNext" class="slickButtonCss slickNextCss" style="transform: translatey(-50%);">
+        <i class="fa fa-angle-right fa-4x"></i>
+    </button>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.{{identifier}}').slick({
+                lazyLoad: 'ondemand',
+                autoplay: false,
+                autoplaySpeed: 0,
+                arrows: true,
+                prevArrow: $('#{{identifier}}-slickPrevbutton'),
+                nextArrow: $('#{{identifier}}-slickNext'),
+                infinite: false,
+                slidesToShow: 3,
+                dots: true,
+                appendDots: $(".{{identifier}}-flashsaleDots"),
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    }
+                ]
+            });
+        })
+    </script>
+</div>
+
+{% endwith %}
+{% comment %} <ul></ul> {% endcomment %}

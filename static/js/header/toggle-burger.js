@@ -28,22 +28,23 @@ $(function () {
         $('#closeBurger').toggleClass('hidden')
     })
 
-    (() => {
-        const menuBurger = $('#menuBurger').get(0)
-        const menuBurgerBackDrop = $('#menuBurgerBackDrop').get(0)
+    // (() => {
+        // console.log('hello')
+        // const menuBurger = $('#menuBurger').get(0)
+        // const menuBurgerBackDrop = $('#menuBurgerBackDrop').get(0)
 
-        const resizeObserver = new ResizeObserver((entries) => {
-            console.log('entries: ', entries);
-        })
+        // const resizeObserver = new ResizeObserver((entries) => {
+        //     console.log('entries: ', entries);
+        // })
 
-        if (menuBurger) {
-            resizeObserver.observe(menuBurger)
-        }
+        // if (menuBurger) {
+        //     resizeObserver.observe(menuBurger)
+        // }
 
-    })()
+    // })()
 
     // $('#closeBurger').on('click', () => {
     //     $('#menuBurger').toggleClass('hidden')
     //     $('#menuBurgerBackDrop').toggleClass('hidden')
     // })
-  });
+});
