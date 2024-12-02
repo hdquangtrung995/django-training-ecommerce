@@ -142,7 +142,7 @@ class HomeView(TemplateView):
             return 404
 
     def get_home_page_banners(self):
-        store = get_object_or_404(EcomStore, pk=1)
+        store = self.request.common_data.get("store_context")
         return store.banners
 
     def get_home_page_promotions(self):
@@ -248,7 +248,7 @@ class HomeView(TemplateView):
         product_by_category_serializer = BaseProductsSerializer(
             product_by_category_lookup, many=True, exclude=["galleries"]
         )
-        category_lookup = EcomCategory.objects.all()
+        # category_lookup = EcomCategory.objects.all()
 
         def grouping(acc, curr):
             category_id = curr.get("category")
@@ -264,8 +264,10 @@ class HomeView(TemplateView):
                     }
                 else:
                     existing_category = find(
-                        lambda category: category.id == category_id, category_lookup
+                        lambda category: category.id == category_id,
+                        self.request.common_data.get("categories"),
                     )
+
                     return {
                         **acc,
                         curr.get("category"): {

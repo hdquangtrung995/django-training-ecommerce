@@ -1,9 +1,7 @@
 import logging
-import functools
+import json
 
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from django.urls import reverse
 
 from ecommerce.helpers import find
 from ecommerce.models import EcomCategory, EcomStore, EcomStoreGuideline
@@ -13,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def header_footer_context(request):
     try:
-        root = EcomCategory.objects.select_related("parent").all()
+        # root = EcomCategory.objects.select_related("parent").all()
 
         def build_tree_recursive(categories, parent_id=None):
             # Find all categories whose parent_id matches the current parent
@@ -38,7 +36,7 @@ def header_footer_context(request):
                 )
             return tree
 
-        category_tree = build_tree_recursive(root)
+        category_tree = build_tree_recursive(request.common_data.get("categories"))
 
         for_men = find(lambda i: i.get("id") == 12, category_tree)
         sub_category = for_men.get("sub_category") if for_men else list()
@@ -54,14 +52,10 @@ def header_footer_context(request):
             accessories,
         ]
 
-        storeSerialized = get_object_or_404(EcomStore, pk=1)
-
-        guidelineSerialized = get_list_or_404(EcomStoreGuideline)
-
         return {
             "navigations_context": navigations,
-            "store_context": storeSerialized,
-            "guideline_context": guidelineSerialized,
+            "store_context": request.common_data.get("store_context"),
+            "guideline_context": request.common_data.get("guideline_context"),
         }
     except Exception as error:
         logger.error(f"Unhandled error in context processor: {error}")

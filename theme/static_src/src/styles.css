@@ -143,6 +143,10 @@ input {
     @apply m-auto md:max-w-[80%];
 }
 
+.mainBodyProductContainerResponsive {
+    @apply w-full
+}
+
 .slick-dots {
     @apply flex justify-center gap-x-4;
 }
