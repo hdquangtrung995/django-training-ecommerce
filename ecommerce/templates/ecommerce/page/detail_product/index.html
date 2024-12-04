@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% load static %}
+{% load query_transform %}
+
+{% block title %}
+Products Detail
+{% endblock title %}
+
+{% block body-content %}
+
+{% include "ecommerce/components/breadcrumbs/index.html" %}
+
+{% with before_coupon="before:content-[''] before:absolute before:w-[10px] before:h-[10px] before:bg-white before:top-[50%] before:left-[-5px] before:translate-y-[-50%] before:rounded-full" after_coupon="after:content-[''] after:absolute after:w-[10px] after:h-[10px] after:bg-white after:top-[50%] after:right-[-6px] after:translate-y-[-50%] after:rounded-full" actionButton="border uppercase px-4 py-2 rounded-lg font-bold h-12 md:flex-grow md:self-center" %}
+
+<section class="mainBodyContenContainerResponsive p-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:grid-rows-none gap-8">
+        <div class="bg-white p-4">
+            <div class="relative">
+                <button id="slickProductDetailPrev" class="slickButtonCss slickPrevCss" style="transform: translatey(-50%);">
+                    <i class="fa fa-angle-left fa-4x"></i>
+                </button>
+                <ul class="product-details-slider">
+                    {% for source in product_detail.galleries %}
+                        <li><img src="{{source}}" alt=""></li>
+                    {% endfor %}
+                </ul>
+                <button id="slickProductDetailNext" class="slickButtonCss slickNextCss" style="transform: translatey(-50%);">
+                    <i class="fa fa-angle-right fa-4x"></i>
+                </button>
+            </div>
+            
+            <div class="relative">
+                <ul class="product-details-slider-nav">
+                    {% for source in product_detail.galleries %}
+                        <li class="p-2"><img src="{{source}}" alt=""></li>
+                    {% endfor %}
+                </ul>
+                <div class="productDetailDots"></div>
+            </div>
+        </div>
+
+        <div class="grid gap-6">
+            <form class="bg-white p-4 flexCol gap-6">
+                <div class="flex items-center">
+                    <h1 class="text-xl">{{product_detail.name}}</h1>
+                    <span class="ml-2 px-2 py-[1.5px] bg-[#38bf57] rounded-sm text-[10px] text-white">còn hàng</span>
+                </div>
+
+                <div>
+                    <span class="capitalize">category: <strong>{{product_detail.category.name}}</strong></span> | <span>SKU: <strong>{{product_detail.product_code}}</strong></sp>
+                </div>
+
+                <div id="product-price">500.000</div>
+
+                <div class="relative border-2 border-black border-dashed p-4 pt-6">
+                    <span class="capitalize font-bold absolute top-[-10px] left-5 bg-white px-2 text-[12px] md:text-sm">
+                        <img class="inline" src="https://file.hstatic.net/1000253775/file/gift_new-removebg-preview_fce03d3cd9d24d0cb0be33ac068e41fc.png" width="22" height-"22">        
+                        promotion - special discount
+                    </span>
+                    <div>hello</div>
+                </div>
+
+                <div class="flexCol gap-y-2">
+                    <span>Discount codes you can use:</span>
+                    <div class="flexRow flex-wrap gap-2">
+                        <button class="bg-black py-[5px] px-[30px] rounded-[6px] text-white relative {{before_coupon}} {{after_coupon}}">WIND10</button>
+                        <button class="bg-black py-[5px] px-[30px] rounded-[6px] text-white relative {{before_coupon}} {{after_coupon}}">WIND10</button>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="capitalize">color: <strong>đen</strong></span>
+                    <div id="color-wrapper" class="flex flex-wrap gap-2 mt-2"></div>
+                </div>
+
+                <div>
+                    <span class="capitalize">size: <strong class="uppercase">s</strong></span>
+                    <span class="capitalize ml-4">
+                        <img class="inline" src="https://file.hstatic.net/200000525917/file/ruler-svg_74f5e49dbd8c4235a98dd991dcdfa38e.svg" width="15" height="15" >
+                        <a href="#" class="underline hover:text-[#FB8500]">how to pick your size</a>
+                    </span>
+
+                    <div id="size-wrapper" class='flex flex-wrap gap-2 mt-2'></div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-2">
+                    <div class="flexRowCenter self-start md:self-auto h-12 border">
+                        <button class="w-10 text-lg font-bold">-</button>
+                        <span class="w-10 text-lg font-bold text-center">1</span>
+                        <button class="w-10 text-lg font-bold">+</button>
+                    </div>
+                    <button class="{{actionButton}} text-white bg-black hover:text-black hover:bg-white hover:border hover:border-black">add to cart</button>
+                    <button class="{{actionButton}} border-black hover:text-white hover:bg-black">buy now</button>
+                </div>
+            </form>
+            <ul class="bg-white p-4 grid grid-cols-2 md:grid-cols-3 gap-2">
+                {% for policy in policies %}
+                    <li class="text-center">
+                        <img class="m-auto" src="{{policy.src}}" width="45" height="45" >
+                        <span class="text-[12px]">{{policy.label}}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="appearance-none w-4 h-4 bg-[black]"></div>
+    </div>
+
+    {{ product_detail.variants|json_script:'variants' }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.product-details-slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: true,
+                fade: true,
+                asNavFor: '.product-details-slider-nav',
+                prevArrow: $('#slickProductDetailPrev'),
+                nextArrow: $('#slickProductDetailNext')
+            });
+            $('.product-details-slider-nav').slick({
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                asNavFor: '.product-details-slider',
+                dots: true,
+                centerMode: true,
+                focusOnSelect: true,
+                arrows: false,
+                appendDots: $(".productDetailDots"),
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                ]
+            });
+        })
+        
+        $(document).ready(function() {
+            const variants = JSON.parse($('#variants').text())
+            const grouping_colors = variants.reduce((acc, curr) => {
+                const { color } = curr
+                return {...acc, [color]: { value: color, label: color } } 
+            }, {})
+            const grouping_sizes = variants.reduce((acc, curr) => {
+                const { size } = curr
+                return {...acc, [size.value]: { value: size.value, label: size.label }}
+            }, {})
+
+            const main = variants.reduce((acc, curr) => {
+                const { color } = curr
+                if (acc[color]) {
+                    return {...acc, [color]: [...acc[color], curr]}
+                } else {
+                    return {...acc, [color]: [curr]}
+                }
+            }, {})
+            let selectedColor = null;
+            let selectedSize = null;
+            let selected_variant = null;
+
+            function insertRadioColors() {
+                const elements = Object.values(grouping_colors).sort((a, b) => a.label.localeCompare(b.label, 'en', { sensitivity: 'base' })).map(i => `
+                    <div class="relative w-7 h-7 rounded-full border border-black has-[:checked]:border-[#FB8500]">
+                        <input id="${i.label}" type="radio" name="color-radio-name" value="${i.value}" class="color-radio-input appearance-none">
+                        <label for="${i.label}" class="cursor-pointer absolute w-full h-full top-0 left-0 rounded-full flexRowCenter"><div class="rounded-full w-4 h-4 bg-[${i.value}]"></div></label>
+                        <div class="hidden cursor-not-allowed absolute z-20 top-0 left-0 w-full h-full"><div class="ban-icon"></div></div>
+                    </div>
+                `) 
+                $('#color-wrapper').html(elements.join(''))
+            }
+            insertRadioColors()
+            
+            function insertRadioSizes() {
+                const elements = Object.values(grouping_sizes).sort((a, b) => b.label.localeCompare(a.label)).map(i => `
+                    <div class="relative w-10 h-10 has-[:checked]:border-[#FB8500]">
+                        <input id="${i.label}" type="radio" name="size-radio-name" value="${i.value}" class="size-radio-input appearance-none">
+                        <label for="${i.label}" class="cursor-pointer absolute top-0 left-0 w-full h-full">
+                            <div class="uppercase w-10 h-10 border rounded-md relative flexRowCenter">
+                                <span>${i.label}</span>
+                                <img class="absolute hidden right-0 bottom-0" src="https://file.hstatic.net/200000525917/file/select-pro_e3e51c75e13340c1805618324bab59f0.png" width="12" height="12" >
+                            </div>
+                        </label>
+                    </div>
+                `)
+                $('#size-wrapper').html(elements.join(''))
+            }
+
+            insertRadioSizes()
+
+            $('#color-wrapper, #size-wrapper').on('change', '.color-radio-input, .size-radio-input', function(event) {
+                
+            })
+
+            function updateColor(color) {
+                selectedColor = color
+                if (selectedSize) {
+                    const selectedVariantBaseOnSize = Object.values(main[color]).find(i => i.size.value == selectedSize)
+                    if (selectedVariantBaseOnSize && selectedVariantBaseOnSize.stock > 0) {
+                        selected_variant = selectedVariantBaseOnSize
+                    } else {
+                        selected_variant = Object.values(main[color]).find(i => i.stock > 0)
+                    }
+                } else {
+                    selected_variant = Object.values(main[color]).find(i => i.stock > 0)
+                }
+            }
+
+            function updateColorDOM(color) {
+                console.log('dom: ', $(`.color-radio-input[value="${color}"]`))
+                $(`.color-radio-input[value="${color}"]`).prop('checked', true)
+                updateColor(color)
+            }
+
+            function initialRender() {
+                const data = Object.entries(main).sort(([a], [b]) => a.localeCompare(b));
+                data.forEach(([key, variantItems]) => {
+                    const hasStock = variantItems.every(i => i.stock > 0)
+                    if (hasStock) {
+                        updateColorDOM(key)
+                    } else {
+                        $(`.color-radio-input[value="${key}"]`).prop('disabled', true)
+                    }
+                    return hasStock
+                })
+            }
+
+            initialRender()
+        })
+    </script>
+</section>
+
+{% endwith %}
+
+{% endblock body-content %}
+{% comment %} <div></div> {% endcomment %}

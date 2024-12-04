@@ -1,6 +1,6 @@
-from ecommerce.serializers.category import CategorySerializer
+from ecommerce.serializers.category import BaseCategorySerializer
 from ecommerce.serializers.products import (
-    ProductsVariantSerializer,
+    BaseProductsVariantSerializer,
     # ProductsPriceSerializer,
     # ProductsNewEverydaySerializer,
     # PromotionFlashsaleSerializer,
@@ -15,4 +15,5 @@ from ecommerce.serializers.products_relationship import (
     ProductPromotionExtraSerializer,
     BaseProductsSerializer,
     ProductPromotionExtraExcludeGalleriesSerializer,
+    ProductWithCategorySerializer,
 )

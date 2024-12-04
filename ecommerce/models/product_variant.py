@@ -26,7 +26,7 @@ class EcomProductVariant(models.Model):
     stock = models.PositiveSmallIntegerField(default=0, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     gender = models.CharField(choices=GENDER, blank=False)
-    product_id = models.ForeignKey(
+    product = models.ForeignKey(
         EcomProducts, on_delete=models.CASCADE, related_name="variants"
     )
 
@@ -36,4 +36,4 @@ class EcomProductVariant(models.Model):
         verbose_name_plural = "product variants"
 
     def __str__(self):
-        return f"Product ID: {self.product_id} (id: {self.id})"
+        return f"Product ID: {self.product} (id: {self.id})"

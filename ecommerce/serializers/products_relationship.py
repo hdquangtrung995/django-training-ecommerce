@@ -5,28 +5,22 @@ from django.conf import settings
 from ecommerce.models import (
     EcomProducts,
     EcomProductPromotionExtra,
-    EcomProductVariant,
     EcomPromotion,
     EcomPromotionDiscountVariant,
 )
 from ecommerce.serializers.dynamic import DynamicFieldsModelSerializer
 from ecommerce.serializers import (
-    ProductsVariantSerializer,
+    BaseProductsVariantSerializer,
     PromotionDiscountVariantSerializer,
-    # PromotionThroughSerializer,
-    # PromotionExculdeProductSerializer,
-    # ProductsPriceSerializer,
     BasePromotionSerializer,
+    BaseCategorySerializer,
 )
 from ecommerce.helpers import find
 
 
 class BaseProductsSerializer(DynamicFieldsModelSerializer):
-    variants = ProductsVariantSerializer(many=True)
+    variants = BaseProductsVariantSerializer(many=True)
     promotions = BasePromotionSerializer(many=True)
-    # promotions = BasePromotionSerializer(
-    #     source="ecomproductpromotionextra_set", many=True
-    # )
 
     class Meta:
         model = EcomProducts
@@ -41,20 +35,6 @@ class PromotionFlashsaleSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = EcomPromotion
         fields = "__all__"
-        # fields = [
-        #     "name",
-        #     "description",
-        #     "link_to",
-        #     "thumbnail",
-        #     "promotion_type",
-        #     "code",
-        #     "start_date",
-        #     "end_date",
-        #     "is_active",
-        #     "can_stack",
-        #     "discount_variant",
-        #     "products",
-        # ]
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -86,12 +66,12 @@ class PromotionFlashsaleSerializer(DynamicFieldsModelSerializer):
         )
         return label
 
-    def get_products(self, obj):
-        data = obj.products.all()[
-            : settings.MY_WEBAPP_SETTING.get("NUMBER_OF_RECORD_FOR_FLASHSALE")
-        ]
-        # return ProductsPriceSerializer(data, many=True).data
-        return []
+    # def get_products(self, obj):
+    #     data = obj.products.all()[
+    #         : settings.MY_WEBAPP_SETTING.get("NUMBER_OF_RECORD_FOR_FLASHSALE")
+    #     ]
+    #     # return ProductsPriceSerializer(data, many=True).data
+    #     return []
 
 
 class ProductPromotionExtraSerializer(DynamicFieldsModelSerializer):
@@ -109,3 +89,22 @@ class ProductPromotionExtraExcludeGalleriesSerializer(ProductPromotionExtraSeria
     class Meta:
         model = EcomProductPromotionExtra
         fields = "__all__"
+
+
+class ProductWithCategorySerializer(BaseProductsSerializer):
+    category = BaseCategorySerializer(exclude=["parent"])
+
+    class Meta:
+        model = EcomProducts
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        # print("representation; ", representation)
+        return {
+            **representation,
+            "variants": [
+                {**i, "product": str(i.get("product"))}
+                for i in representation.get("variants")
+            ],
+        }

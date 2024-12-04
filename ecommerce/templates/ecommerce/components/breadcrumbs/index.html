@@ -1,0 +1,31 @@
+<nav class="flex px-5 py-3"
+    aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        {% for breadcrumb in breadcrumbs %}
+            {% if forloop.first %}
+                <li class="inline-flex items-center">
+                    <a href="{{breadcrumb.href}}" class="capitalize inline-flex items-center text-sm font-medium hover:text-blue-600">
+                        <i class="fa fa-home fa-lg p-1 px-2"></i>
+                        {{breadcrumb.label}}
+                    </a>
+                </li>
+            {% elif forloop.last %}
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa fa-angle-right fa-lg p-1 px-2 text-gray-400"></i>
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">{{breadcrumb.label}}</span>
+                    </div>
+                </li>
+            {% else %}
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa fa-angle-right fa-lg p-1 px-2 text-gray-400"></i>
+                        <a href="{{breadcrumb.href}}" class="capitalize ms-1 text-sm font-medium  hover:text-blue-600 md:ms-2">{{breadcrumb.label}}</a>
+                    </div>
+                </li>
+            {% endif %}
+        {% empty %}
+            <li>empty</li>
+        {% endfor %}
+    </ol>
+</nav>

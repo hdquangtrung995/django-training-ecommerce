@@ -1,13 +1,14 @@
 import datetime
 
 from django.db import models
-from ecommerce.models.abstracts import UUIDBaseModel
 from django.contrib.postgres.fields import ArrayField
 from django.utils.text import slugify
-from model_utils.models import TimeStampedModel
 from django.utils import timezone
+from django.db.models import Q
+from model_utils.models import TimeStampedModel
 
 from ecommerce.models import EcomCategory, EcomPromotion
+from ecommerce.models.abstracts import UUIDBaseModel
 
 
 # Create your models here.
@@ -30,6 +31,11 @@ class EcomProducts(UUIDBaseModel, TimeStampedModel):
         db_table = "ecom_products"
         verbose_name = "product"
         verbose_name_plural = "products"
+        indexes = [
+            models.Index(
+                fields=["slug"], name="product_slug_idx", condition=Q(is_active=True)
+            )
+        ]
 
     def __str__(self):
         return f"{self.name} (id: {self.id})"

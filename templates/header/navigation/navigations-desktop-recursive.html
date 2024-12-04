@@ -1,11 +1,9 @@
 {% with angleDown="fa-rotate-180" %}
 {% with subMenuHoverVerticalCss="group-hover/1:opacity-100 group-hover/1:visible group-hover/1:mt-0" subMenuHoverHorizontalCss="left-full top-0" %}
 
-
-
 {% for menu in menu_list %}
     <li class="navigationHover categoryLink">
-        <a class="group/link" href="{{menu.name_slug}}">
+        <a class="group/link" href="{% url 'ecommerce:product_page' %}?category={{ menu.name_slug|lower }}">
             <span class="group-hover/link:text-[var(--link-category-hover)]">{{menu.display_name}}</span> 
             {% if menu.sub_category %}
                 <i class="fa fa-angle-down fa-lg group-hover/link:text-[var(--link-category-hover)]"></i>

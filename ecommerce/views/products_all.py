@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 from django.db.models import Count
+from django.db.models import Q
 
 from ecommerce.models import EcomProducts, EcomProductVariant
 from ecommerce.serializers import (
@@ -25,7 +26,29 @@ class AllProductsWithFilter(ListView):
 
         for key, value in self.request.GET.items():
             if key == "category":
-                queryset = queryset.filter(category__name_slug__in=value.split(","))
+                category_and_its_descendant = set()
+
+                def find_descendant_ids(data, parent_slug):
+                    descendants = []
+                    for item in data:
+                        if item.parent and item.parent.name_slug == parent_slug:
+                            descendants.append(item.name_slug)
+                            descendants.extend(
+                                find_descendant_ids(data, item.name_slug)
+                            )
+                    return descendants
+
+                for i in value.split(","):
+                    category_and_its_descendant.add(i)
+                    category_and_its_descendant.update(
+                        find_descendant_ids(
+                            self.request.common_data.get("categories"), i
+                        )
+                    )
+
+                queryset = queryset.select_related("category").filter(
+                    Q(category__name_slug__in=category_and_its_descendant)
+                )
             if key == "size":
                 queryset = queryset.filter(variants__size__in=value.split(","))
             if key == "color":
@@ -35,8 +58,8 @@ class AllProductsWithFilter(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         try:
-            context = super().get_context_data(**kwargs)
             queryset = self.object_list
             page_size = self.get_paginate_by(queryset)
 
@@ -76,6 +99,7 @@ class AllProductsWithFilter(ListView):
             context["sizes"] = EcomProductVariant.SIZES
             context["colors"] = colors
             context[self.context_object_name] = all_products
-            return context
         except Exception as error:
-            print("ERROR: ", error)
+            print("__name__: ", __name__, error)
+            context["error"] = f"An unexpected error occurred: {str(error)}"
+        return context

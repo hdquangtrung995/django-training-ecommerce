@@ -93,6 +93,10 @@ input {
     @apply flex flex-col justify-center items-center;
 }
 
+.flexColBetween {
+    @apply flex flex-col justify-between
+}
+
 .flexColCenterBetween {
     @apply flex flex-col justify-between items-center;
 }
@@ -128,7 +132,7 @@ input {
 }
 
 .shadow {
-   box-shadow: 0px 0px 4px 2px #ccc;
+    box-shadow: 0px 0px 4px 2px #ccc;
 }
 
 .borderRightStyleDashed {
@@ -181,6 +185,15 @@ input {
 
 .slickPrevCss {
     @apply left-5;
+}
+
+.productDetailDots .slick-dots li.slick-active button {
+    @apply bg-[#FB8500] border-[#FB8500]
+}
+
+.ban-icon {
+    @apply relative w-full h-full rounded-full border-2 border-red-500;
+    @apply before:absolute before:left-0 before:top-1/2 before:w-full before:h-0.5 before:bg-red-500 before:rotate-[-45deg] before:origin-center before:content-[''];
 }
 
 /* @layer utilities {} */

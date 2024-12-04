@@ -1,17 +1,11 @@
 import logging
-import json
-
-from django.shortcuts import get_object_or_404, get_list_or_404
-
 from ecommerce.helpers import find
-from ecommerce.models import EcomCategory, EcomStore, EcomStoreGuideline
 
 logger = logging.getLogger(__name__)
 
 
 def header_footer_context(request):
     try:
-        # root = EcomCategory.objects.select_related("parent").all()
 
         def build_tree_recursive(categories, parent_id=None):
             # Find all categories whose parent_id matches the current parent
@@ -45,13 +39,12 @@ def header_footer_context(request):
             {
                 "name": "products",
                 "display_name": "products",
-                "name_slug": "products",
+                "name_slug": "",
                 "sub_category": [*sub_category, accessories],
             },
             *sub_category,
             accessories,
         ]
-
         return {
             "navigations_context": navigations,
             "store_context": request.common_data.get("store_context"),

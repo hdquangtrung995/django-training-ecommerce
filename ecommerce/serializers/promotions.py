@@ -43,24 +43,10 @@ class BasePromotionSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = EcomPromotion
         fields = "__all__"
-        # fields = [
-        #     "name",
-        #     "description",
-        #     "link_to",
-        #     "thumbnail",
-        #     "promotion_type",
-        #     "code",
-        #     "start_date",
-        #     "end_date",
-        #     "is_active",
-        #     "can_stack",
-        #     "discount_variant",
-        #     "products",
-        # ]
 
     def get_promotion_type(self, obj):
         promotion_type, label = find(
-            lambda item: item[1] if item[0] == obj.promotion_type else None,
+            lambda item: True if item[0] == obj.promotion_type else False,
             list(EcomPromotion.PROMOTION_TYPE),
         )
         return {"label": label, "type": promotion_type}
