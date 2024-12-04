@@ -31,3 +31,5 @@
     #8 Run "python3 manage.py tailwind start" to start tailawindcss
 
     #9 Run "python3 manage.py shell" to open interactive django shell, input exit() or quit() to close the shell
+
+    #10
