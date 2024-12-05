@@ -9,8 +9,8 @@ class EcomProductVariant(models.Model):
     SIZES = Choices(
         (0, "xs", _("XS")),
         (1, "s", _("S")),
-        (2, "l", _("L")),
-        (3, "m", _("M")),
+        (2, "m", _("M")),
+        (3, "l", _("L")),
         (4, "xl", _("XL")),
         (5, "xxl", _("XXl")),
     )

@@ -67,7 +67,7 @@ class ProductDetail(DetailView):
                 context["object"] = self.object
                 data = ProductWithCategorySerializer(self.object)
                 context[self.context_object_name] = data.data
-            # print("data.data: ", data.data)
+
             context["policies"] = policies
             context["breadcrumbs"] = [
                 {"href": reverse("ecommerce:home_page"), "label": "home"},

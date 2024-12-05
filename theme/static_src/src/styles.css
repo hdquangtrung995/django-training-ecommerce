@@ -191,9 +191,25 @@ input {
     @apply bg-[#FB8500] border-[#FB8500]
 }
 
+.ban-icon, .ban-icon-without-circle {
+    @apply before:absolute before:left-0 before:top-[45%] before:w-full before:h-0.5 before:bg-red-500 before:rotate-[-45deg] before:origin-center before:content-[''];
+}
+
 .ban-icon {
     @apply relative w-full h-full rounded-full border-2 border-red-500;
-    @apply before:absolute before:left-0 before:top-1/2 before:w-full before:h-0.5 before:bg-red-500 before:rotate-[-45deg] before:origin-center before:content-[''];
+    
+}
+
+.ban-icon-without-circle {
+    @apply relative w-full h-full;
+}
+
+.hideInputNumberArrow[type="number"]::-webkit-outer-spin-button, .hideInputNumberArrow[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.hideInputNumberArrow[type="number"] {
+    -moz-appearance: textfield;
 }
 
 /* @layer utilities {} */

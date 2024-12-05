@@ -11,6 +11,10 @@ module.exports = {
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
          */
 
+        /*  Include javascript file in static folder & exclude jquery file */
+        '../../static/**/*.js',
+        '!../../static/js/jquery.min.js', 
+
         /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
         '../templates/**/*.html',
 

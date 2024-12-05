@@ -12,8 +12,14 @@ from ecommerce.models import (
     EcomStoreGuideline,
 )
 
+
+@admin.register(EcomCategory)
+class CategoryAdmin(admin.ModelAdmin):
+    fields = ["id", "name", "display_name", "name_slug", "parent"]
+    readonly_fields = ["id", "name_slug"]
+
+
 # Register your models here.
-admin.site.register(EcomCategory)
 admin.site.register(EcomProducts)
 admin.site.register(EcomProductVariant)
 admin.site.register(EcomPromotion)
