@@ -18,7 +18,7 @@ class EcomProducts(UUIDBaseModel, TimeStampedModel):
     name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True, null=True)
     product_code = models.CharField(max_length=50, null=True, blank=False)
-    slug = models.SlugField(max_length=200, unique=True, editable=False)
+    slug = models.SlugField(max_length=200, unique=True)
     thumbnail = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(blank=True, default=False)
     galleries = ArrayField(models.URLField(max_length=255), size=MAXIMUM_GALLERY_ITEMS)

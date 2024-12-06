@@ -18,10 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from ecommerce.admin import my_ecommerce_admin_site
 
 urlpatterns = [
     path("", include("ecommerce.urls")),
-    path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
+    path("admin/", my_ecommerce_admin_site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("api-auth/", include("rest_framework.urls")),
 ] + debug_toolbar_urls()
