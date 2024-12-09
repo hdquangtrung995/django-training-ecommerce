@@ -48,12 +48,13 @@ class EcomUser(AbstractUser):
     REQUIRED_FIELDS = ["first_name", "last_name", "date_of_birth"]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email"), unique=True)
     phone = models.CharField(_("phone number"), max_length=25, blank=True)
     address = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     avatar = models.URLField(max_length=255, blank=True)
     date_of_birth = models.DateField(verbose_name="Birthday", null=True)
+    email_verified = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 

@@ -1,3 +1,4 @@
-from ecommerce.views.home import HomeView
-from ecommerce.views.products_all import AllProductsWithFilter
-from ecommerce.views.product_detail import ProductDetail
+from .home import HomeView
+from .products_all import AllProductsWithFilter
+from .product_detail import ProductDetail
+from .register_account import RegisterAccount
