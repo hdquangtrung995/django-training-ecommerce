@@ -1,1 +1,7 @@
-from .account import AccountCreationForm, AccountChangeForm, RegisterAccountForm
+from .account import (
+    AccountCreationForm,
+    AccountChangeForm,
+    RegisterAccountForm,
+    LoginAccountForm,
+    AccountChangeWithOutPasswordForm,
+)

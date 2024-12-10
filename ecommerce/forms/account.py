@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth import password_validation
 
 from user.models import EcomUser
 
@@ -25,6 +26,11 @@ class AccountCreationForm(forms.ModelForm):
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
             raise ValidationError("Passwords don't match")
+        # try:
+        #     password_validation.validate_password(password2, self.instance)
+        # except ValidationError as error:
+        #     print("error: ", error.messages, type(error.messages))
+        #     raise ValidationError(error)
         return password2
 
     def save(self, commit=True):
@@ -44,7 +50,9 @@ class AccountChangeForm(forms.ModelForm):
 
     password = ReadOnlyPasswordHashField()
     date_of_birth = forms.DateField(
-        label="Birthday ", widget=forms.SelectDateWidget(years=range(1980, 2000))
+        label="Birthday ",
+        widget=forms.SelectDateWidget(years=range(1980, 2000)),
+        required=False,
     )
     email_verified = forms.BooleanField(label="Email vefified", required=False)
 
@@ -67,3 +75,30 @@ class RegisterAccountForm(AccountCreationForm):
     class Meta:
         model = EcomUser
         fields = ["email"]
+
+
+class LoginAccountForm(forms.Form):
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+
+
+class AccountChangeWithOutPasswordForm(AccountChangeForm):
+    password = None
+    email_verified = forms.BooleanField(
+        label="Email vefified",
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={"disabled": True, "class": "cursor-not-allowed"}
+        ),
+    )
+
+    class Meta:
+        model = EcomUser
+        fields = [
+            "email",
+            "date_of_birth",
+            "first_name",
+            "last_name",
+            "phone",
+            "email_verified",
+        ]

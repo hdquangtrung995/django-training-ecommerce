@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block body-content %}
+
+{% with local_var=context_var %}
+
+<div class="mainBodyContenContainerResponsive py-10">
+    <div class="flexColCenter py-8 *:text-2xl"><h1 class="titleH1">Login</h1></div>
+    <form action="{% url 'ecommerce:login_account' %}" method="post" class="flexColCenter px-4 md:px-0">
+        {% csrf_token %}
+        {% include "ecommerce/components/form_snippet/index.html" with form=form %}
+        <button type="submit" class="seeAllButton w-40 mt-20">login</button>
+        <a href="{% url 'ecommerce:register_account' %}" class="text-blue-500 hover:text-blue-700 underline mt-6">or create an account here</a>
+    </form>
+</div>
+
+{% endwith %}
+
+{% endblock body-content %}

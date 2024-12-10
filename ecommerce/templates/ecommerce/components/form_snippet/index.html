@@ -1,0 +1,21 @@
+{% for field in form %}
+    <div class="w-full md:w-[500px] my-4">
+        
+        {% if field.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ field.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">{{ field.label_tag }}</div>
+        {% endif %}
+        
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4">{{ field }}</div>
+        {% if field.errors %}
+            <ul class="error-messages">
+                {% for error in field.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endfor %}

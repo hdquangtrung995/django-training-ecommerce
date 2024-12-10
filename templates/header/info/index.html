@@ -2,22 +2,8 @@
 
 <div class="flexRowCenter">
     <ul class="flexRow gap-x-3 md:gap-x-8">
-        <li class="block md:hidden {{iconSize}}">
-            <a href="/" class="flexColCenter">
-                <img width="24" height="24"
-                    src="//theme.hstatic.net/1000253775/1001291562/14/search-icon.svg?v=421"
-                    alt="search" />
-                <span class="hidden md:block capitalize">stores</span></a>
-        </li>
         <li class="{{iconSize}}">
-            <a href="/" class="flexColCenter">
-                <img width="24" height="24"
-                    src="//theme.hstatic.net/1000253775/1001291562/14/location.svg?v=332"
-                    alt="stores" />
-                <span class="hidden md:block capitalize">stores</span></a>
-        </li>
-        <li class="{{iconSize}}">
-            <a href="/" class="flexColCenter">
+            <a href="{% url 'ecommerce:login_account' %}" class="flexColCenter">
                 <img width="24" height="24"
                     src="//theme.hstatic.net/1000253775/1001291562/14/user-account.svg?v=332"
                     alt="Sign in" />

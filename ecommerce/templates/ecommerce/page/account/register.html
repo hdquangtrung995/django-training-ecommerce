@@ -11,16 +11,10 @@ Register account
 
 <div class="mainBodyContenContainerResponsive py-10">
     <div class="flexColCenter py-8 *:text-2xl"><h1 class="titleH1">Register new account</h1></div>
-    <form class="flexColCenter px-4 md:px-0">
+    <form action="{% url 'ecommerce:register_account' %}" method="post" class="flexColCenter px-4 md:px-0">
         {% csrf_token %}
-        {% for field in form %}
-            <div class="w-full md:w-[500px] my-4">
-                {{ field.errors }}
-                {{ field.label_tag }}
-                <div class="*:w-full *:rounded-sm *:border *:h-10">{{ field }}</div>
-            </div>
-        {% endfor %}
-        <button type="submit" class="seeAllButton">register</button>
+        {% include "ecommerce/components/form_snippet/index.html" with form=form %}
+        <button type="submit" class="seeAllButton  w-40 mt-20">register</button>
     </form>
 </div>
 
