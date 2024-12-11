@@ -1,0 +1,12 @@
+<ul class="flexCol gap-4 border rounded-md p-4 h-full min-h-[80vh]">
+    <li><strong>Hi, {{ user.first_name|default:""|capfirst }} {{ user.last_name|default:""|capfirst }}</strong></li>
+
+    {% for navigation in account_navigations %}
+        <li>
+            <a href="{{navigation.href}}" class="{% if request.path == navigation.href %}bg-black text-white{% else %}bg-white{% endif %}  p-[14px]  rounded-md flexRow items-center gap-6 shadow capitalize">
+                <i class="fa {{navigation.icon}} fa-2x"></i>
+                {{navigation.name}}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

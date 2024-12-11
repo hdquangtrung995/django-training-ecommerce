@@ -1,0 +1,136 @@
+<div class="flexColCenter py-8 *:text-2xl"><h1 class="titleH1">your profile</h1></div>
+<form action="" method="post" class="flexColCenter px-4 md:px-0">
+    {% csrf_token %}
+    <div class="w-full md:w-[500px] my-4">
+        {% if form.email.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ form.email.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">
+                {{ form.email.label_tag }}
+            </div>
+        {% endif %}
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4">
+            {{form.email}}
+        </div>
+        {% if form.email.errors %}
+            <ul class="error-messages">
+                {% for error in form.email.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="w-full md:w-[500px] my-4">
+        {% if form.first_name.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ form.first_name.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">
+                {{ form.first_name.label_tag }}
+            </div>
+        {% endif %}
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4">
+            {{form.first_name}}
+        </div>
+        {% if form.first_name.errors %}
+            <ul class="error-messages">
+                {% for error in form.first_name.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="w-full md:w-[500px] my-4">
+        {% if form.last_name.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ form.last_name.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">
+                {{ form.last_name.label_tag }}
+            </div>
+        {% endif %}
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4">
+            {{form.last_name}}
+        </div>
+        {% if form.last_name.errors %}
+            <ul class="error-messages">
+                {% for error in form.last_name.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="w-full md:w-[500px] my-4">
+        {% if form.phone.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ form.phone.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">
+                {{ form.phone.label_tag }}
+            </div>
+        {% endif %}
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4">
+            {{form.phone}}
+        </div>
+        {% if form.phone.errors %}
+            <ul class="error-messages">
+                {% for error in form.phone.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="w-full md:w-[500px] my-4">
+        {% if form.date_of_birth.field.required %}
+            <div class="mb-4 font-bold">
+                <span class="text-red-500">*</span> {{ form.date_of_birth.label_tag }}
+            </div>
+        {% else %}
+            <div class="mb-4 font-bold">
+                {{ form.date_of_birth.label_tag }}
+            </div>
+        {% endif %}
+        <div class="*:w-full *:rounded-sm *:border *:h-10 *:pl-4 flexRowCenter">
+            {{form.date_of_birth}}
+        </div>
+        {% if form.date_of_birth.errors %}
+            <ul class="error-messages">
+                {% for error in form.date_of_birth.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="w-full md:w-[500px] my-4 flexRowCenter">
+        {% if form.email_verified.field.required %}
+            <div class="font-bold">
+                <span class="text-red-500">*</span> {{ form.email_verified.label_tag }}
+            </div>
+        {% else %}
+            <div class="font-bold {% if form.email_verified.field.widget.attrs.disabled %}text-gray-500 *:cursor-not-allowed{% endif %}">
+                {{ form.email_verified.label_tag }}
+            </div>
+        {% endif %}
+        <span class="ml-4 flexRowCenter">
+            {{form.email_verified}}
+        </span>
+        {% if form.email_verified.errors %}
+            <ul class="error-messages">
+                {% for error in form.email_verified.errors %}
+                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <button type="submit" class="seeAllButton w-40 mt-20">update</button>
+</form>

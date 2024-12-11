@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, AdminPasswordChangeForm
 from django.contrib.auth import password_validation
 
 from user.models import EcomUser
@@ -9,7 +9,9 @@ from user.models import EcomUser
 class AccountCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(
-        label="Password confirmation", widget=forms.PasswordInput
+        label="Password confirmation",
+        widget=forms.PasswordInput,
+        help_text=password_validation.password_validators_help_text_html(),
     )
     date_of_birth = date_of_birth = forms.DateField(
         label="Birthday", widget=forms.SelectDateWidget(years=range(1980, 2000))
@@ -84,12 +86,35 @@ class LoginAccountForm(forms.Form):
 
 class AccountChangeWithOutPasswordForm(AccountChangeForm):
     password = None
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Email",
+                "readonly": True,
+                "class": "cursor-not-allowed bg-gray-600",
+                "style": "background-color: #e0e0e0;",
+            }
+        )
+    )
+    first_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "First name"})
+    )
+    last_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Last name"})
+    )
+
     email_verified = forms.BooleanField(
         label="Email vefified",
         required=False,
         widget=forms.CheckboxInput(
             attrs={"disabled": True, "class": "cursor-not-allowed"}
         ),
+    )
+    phone = forms.CharField(
+        label="Phone",
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Your phone number"}),
     )
 
     class Meta:

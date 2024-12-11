@@ -1,29 +1,27 @@
-from django.http import HttpResponseRedirect
-from django.views.generic.edit import FormView, UpdateView
+from django.shortcuts import get_object_or_404
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.functional import SimpleLazyObject
-
 from ecommerce.forms import AccountChangeWithOutPasswordForm
 from user.models import EcomUser
 from wrapper import query_debugger
+from .navigation import navigations
 
 
 class YourAccount(LoginRequiredMixin, FormView):
     login_url = reverse_lazy("ecommerce:login_account")
     template_name = "ecommerce/page/account/index.html"
     form_class = AccountChangeWithOutPasswordForm
-    # success_url = reverse_lazy("ecommerce:product_page")
-    # initial = EcomUser.objects.get(pk="5dca48dd-fc31-4c42-8fa1-0e69d2687ad7").values()
+    success_url = reverse_lazy("ecommerce:your_account")
 
     def get_context_data(self, **kwargs):
         """
         Add your custom context here
         """
         context = super().get_context_data(**kwargs)
+        context["account_navigations"] = navigations()
         return context
 
-    @query_debugger
     def get_initial(self):
         initial_data = {
             "email": self.request.user.email,
@@ -38,3 +36,16 @@ class YourAccount(LoginRequiredMixin, FormView):
     def get(self, request, *args, **kwargs):
         """Handle GET requests: instantiate a blank version of the form."""
         return self.render_to_response(self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        instance = get_object_or_404(EcomUser, id=request.user.id)
+        form = AccountChangeWithOutPasswordForm(request.POST, instance=instance)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        """If the form is valid, redirect to the supplied URL."""
+        form.save()
+        return super().form_valid(form)

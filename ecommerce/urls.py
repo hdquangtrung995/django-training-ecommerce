@@ -6,6 +6,8 @@ from ecommerce.views import (
     RegisterAccount,
     YourAccount,
     LoginAccount,
+    ChangePassword,
+    sign_out,
 )
 
 app_name = "ecommerce"
@@ -16,4 +18,10 @@ urlpatterns = [
     path("account/", YourAccount.as_view(), name="your_account"),
     path("account/register/", RegisterAccount.as_view(), name="register_account"),
     path("account/login/", LoginAccount.as_view(), name="login_account"),
+    path(
+        "account/change/password",
+        ChangePassword.as_view(),
+        name="change_password_account",
+    ),
+    path("account/signout/", sign_out, name="signout_account"),
 ]

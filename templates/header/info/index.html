@@ -2,14 +2,23 @@
 
 <div class="flexRowCenter">
     <ul class="flexRow gap-x-3 md:gap-x-8">
-        <li class="{{iconSize}}">
-            <a href="{% url 'ecommerce:login_account' %}" class="flexColCenter">
-                <img width="24" height="24"
-                    src="//theme.hstatic.net/1000253775/1001291562/14/user-account.svg?v=332"
-                    alt="Sign in" />
-                <span class="hidden md:block capitalize">sign in</span>
-            </a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="{{iconSize}}">
+                <a href="{% url 'ecommerce:signout_account' %}" class="flexColCenter">
+                    <i class="fa fa-sign-out" style="font-size: 24px;"></i>
+                    <span class="hidden md:block capitalize">sign out</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="{{iconSize}}">
+                <a href="{% url 'ecommerce:login_account' %}" class="flexColCenter">
+                    <img width="24" height="24"
+                        src="//theme.hstatic.net/1000253775/1001291562/14/user-account.svg?v=332"
+                        alt="Sign in" />
+                    <span class="hidden md:block capitalize">sign in</span>
+                </a>
+            </li>
+        {% endif %}
         <li class="{{iconSize}}">
             <a href="/" class="flexColCenter">
                 <img width="24" height="24"

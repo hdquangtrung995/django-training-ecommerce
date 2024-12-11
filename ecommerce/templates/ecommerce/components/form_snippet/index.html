@@ -17,5 +17,10 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        {% if field.help_text %}
+            <div class="pl-6 pt-6">
+                <small class="*:list-disc">{{ field.help_text }}</small>
+            </div>
+        {% endif %}
     </div>
 {% endfor %}

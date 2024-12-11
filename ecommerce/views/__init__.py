@@ -4,3 +4,5 @@ from .product_detail import ProductDetail
 from .account.register import RegisterAccount
 from .account.account import YourAccount
 from .account.login import LoginAccount
+from .account.signout import sign_out
+from .account.change_password import ChangePassword
