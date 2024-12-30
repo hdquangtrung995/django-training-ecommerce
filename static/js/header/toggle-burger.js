@@ -27,24 +27,4 @@ $(function () {
         $('#menuBurgerBackDrop').toggleClass('fullHeight')
         $('#closeBurger').toggleClass('hidden')
     })
-
-    // (() => {
-        // console.log('hello')
-        // const menuBurger = $('#menuBurger').get(0)
-        // const menuBurgerBackDrop = $('#menuBurgerBackDrop').get(0)
-
-        // const resizeObserver = new ResizeObserver((entries) => {
-        //     console.log('entries: ', entries);
-        // })
-
-        // if (menuBurger) {
-        //     resizeObserver.observe(menuBurger)
-        // }
-
-    // })()
-
-    // $('#closeBurger').on('click', () => {
-    //     $('#menuBurger').toggleClass('hidden')
-    //     $('#menuBurgerBackDrop').toggleClass('hidden')
-    // })
 });

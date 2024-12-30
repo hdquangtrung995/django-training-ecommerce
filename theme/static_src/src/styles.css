@@ -169,6 +169,7 @@ input {
 
 .seeAllButton {
     @apply border uppercase self-center bg-black px-4 py-2 rounded-lg text-white hover:text-black hover:bg-white hover:border hover:border-black;
+    @apply disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:text-white disabled:hover:bg-gray-300 disabled:hover:border-gray-300;
 }
 
 .titleH1 {
@@ -210,6 +211,11 @@ input {
 }
 .hideInputNumberArrow[type="number"] {
     -moz-appearance: textfield;
+}
+
+.cartCounter::before {
+    content: attr(data-cart-counter);
+    @apply rounded-full bg-red-500 absolute top-[-5px] right-[-5px] text-[10px] w-4 h-4 text-center;
 }
 
 /* @layer utilities {} */

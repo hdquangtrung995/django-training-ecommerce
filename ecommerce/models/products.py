@@ -12,6 +12,11 @@ from ecommerce.models.abstracts import UUIDBaseModel
 
 
 # Create your models here.
+class EcomProductActive(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+
 class EcomProducts(UUIDBaseModel, TimeStampedModel):
     MAXIMUM_GALLERY_ITEMS = 6
 
@@ -26,6 +31,9 @@ class EcomProducts(UUIDBaseModel, TimeStampedModel):
     promotions = models.ManyToManyField(
         EcomPromotion, through="EcomProductPromotionExtra", related_name="products"
     )
+
+    objects = models.Manager()
+    active = EcomProductActive()
 
     class Meta:
         db_table = "ecom_products"

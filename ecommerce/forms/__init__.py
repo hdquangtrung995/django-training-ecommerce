@@ -5,3 +5,5 @@ from .account import (
     LoginAccountForm,
     AccountChangeWithOutPasswordForm,
 )
+from .promotions import PromotionAddForm, PromotionChangeForm
+from .delivery_fee import DeliveryFeeForm

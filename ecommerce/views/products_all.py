@@ -14,8 +14,8 @@ class AllProductsWithFilter(ListView):
     context_object_name = "products"
     template_name = "ecommerce/page/all_products/index.html"
     paginate_by = 20
-    ordering = ["-created"]
-    queryset = EcomProducts.objects.filter(is_active=True)
+    ordering = ["?"]
+    queryset = EcomProducts.active.all()
     page_kwarg = "page"
 
     def get_queryset(self):

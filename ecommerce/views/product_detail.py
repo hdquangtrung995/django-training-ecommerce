@@ -38,7 +38,7 @@ class ProductDetail(DetailView):
     model = EcomProducts
     context_object_name = "product_detail"
     template_name = "ecommerce/page/detail_product/index.html"
-    queryset = EcomProducts.objects.filter(is_active=True)
+    queryset = EcomProducts.active.all()
 
     def get_queryset(self):
         return self.queryset

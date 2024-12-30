@@ -2,8 +2,28 @@ from django.contrib import admin
 
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    fields = ["id", "size", "color", "sku", "stock", "price", "gender", "product"]
     readonly_fields = ["id"]
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": [
+                    "id",
+                    "sku",
+                    "stock",
+                    "price",
+                    ("gender", "size"),
+                    "product",
+                ],
+            },
+        ),
+        (
+            "Color",
+            {
+                "fields": [("color", "color_hex")],
+            },
+        ),
+    ]
 
     list_display = ["id", "product__name", "price", "stock", "color"]
     list_display_links = ["id"]
@@ -12,7 +32,7 @@ class ProductVariantAdmin(admin.ModelAdmin):
     list_select_related = True
     show_facets = admin.ModelAdmin.show_facets.ALWAYS
 
-    radio_fields = {"size": admin.HORIZONTAL, "gender": admin.HORIZONTAL}
+    # radio_fields = {"size": admin.HORIZONTAL, "gender": admin.HORIZONTAL}
 
     autocomplete_fields = [
         "product"

@@ -14,8 +14,11 @@ class BaseProductsVariantSerializer(DynamicFieldsModelSerializer):
         fields = "__all__"
 
     def get_size(self, obj):
-        value, label = find(
-            lambda item: True if item[0] == obj.size else False,
-            list(EcomProductVariant.SIZES),
-        )
-        return {"value": value, "label": label}
+        if obj.size:
+            value, label = find(
+                lambda item: True if item[0] == obj.size else False,
+                list(EcomProductVariant.SIZES),
+            )
+            return {"value": value, "label": label}
+        else:
+            return None

@@ -111,7 +111,7 @@ class HomeView(TemplateView):
         """
 
         new_products_lookup = (
-            EcomProducts.objects.filter(q_object, is_active=True, **fields_lookup)
+            EcomProducts.active.filter(q_object, **fields_lookup)
             .prefetch_related("variants", "promotions", "promotions__discount_variant")
             .annotate(
                 rank=Window(
@@ -142,8 +142,9 @@ class HomeView(TemplateView):
 
     def group_product_by_categories(self):
         product_by_category_lookup = (
-            EcomProducts.objects.filter(is_active=True)
-            .prefetch_related("variants", "promotions", "promotions__discount_variant")
+            EcomProducts.active.prefetch_related(
+                "variants", "promotions", "promotions__discount_variant"
+            )
             .annotate(
                 rank=Window(
                     expression=RowNumber(),

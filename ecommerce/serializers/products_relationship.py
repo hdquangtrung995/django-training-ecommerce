@@ -66,13 +66,6 @@ class PromotionFlashsaleSerializer(DynamicFieldsModelSerializer):
         )
         return label
 
-    # def get_products(self, obj):
-    #     data = obj.products.all()[
-    #         : settings.MY_WEBAPP_SETTING.get("NUMBER_OF_RECORD_FOR_FLASHSALE")
-    #     ]
-    #     # return ProductsPriceSerializer(data, many=True).data
-    #     return []
-
 
 class ProductPromotionExtraSerializer(DynamicFieldsModelSerializer):
     product = BaseProductsSerializer()
@@ -100,7 +93,6 @@ class ProductWithCategorySerializer(BaseProductsSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        # print("representation; ", representation)
         return {
             **representation,
             "variants": [

@@ -1,7 +1,20 @@
 from django.contrib import admin
+from ecommerce.models import EcomPromotionDiscountVariant, EcomProductPromotionExtra
+from ecommerce.forms import PromotionChangeForm
+
+
+class PromotionDiscountVariantInlineAdmin(admin.TabularInline):
+    model = EcomPromotionDiscountVariant
+    extra = 1
+
+
+class ProductPromotionExtraInlineAdmin(admin.TabularInline):
+    model = EcomProductPromotionExtra
+    extra = 1
 
 
 class PromotionAdmin(admin.ModelAdmin):
+    form = PromotionChangeForm
     fields = [
         "id",
         "name",
@@ -22,6 +35,7 @@ class PromotionAdmin(admin.ModelAdmin):
     list_filter = ["promotion_type"]
     search_fields = ["name", "promotion_type"]
     show_facets = admin.ModelAdmin.show_facets.ALWAYS
+    inlines = [PromotionDiscountVariantInlineAdmin, ProductPromotionExtraInlineAdmin]
 
 
 class PromotionDiscountVariantAdmin(admin.ModelAdmin):

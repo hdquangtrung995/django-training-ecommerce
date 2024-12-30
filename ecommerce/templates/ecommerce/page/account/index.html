@@ -7,8 +7,6 @@ Profile
 
 {% block body-content %}
 
-{% with local_var=context_var %}
-
 <div class="mainBodyContenContainerResponsive py-10 grid grid-cols-4 gap-4">
     <div class="col-span-1">
         {% include "ecommerce/page/account/navigation/index.html" with account_navigations=account_navigations %}
@@ -17,7 +15,5 @@ Profile
         {% include "ecommerce/page/account/form/profile.html" with form=form %}
     </div>
 </div>
-
-{% endwith %}
 
 {% endblock body-content %}

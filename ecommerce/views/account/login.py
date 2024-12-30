@@ -38,6 +38,7 @@ class LoginAccount(FormView):
             username=form.cleaned_data.get("email"),
             password=form.cleaned_data.get("password"),
         )
+        # print("user: ", user)
         if user is not None:
             login(self.request, user)
             return super().form_valid(form)

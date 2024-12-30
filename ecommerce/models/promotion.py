@@ -1,6 +1,25 @@
 from django.db import models
 from model_utils import Choices
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
+
+
+class PromotionActiveAndNotExpire(models.Manager):
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .filter(
+                is_active=True,
+                start_date__lte=datetime.now().date(),
+                end_date__gte=datetime.now().date(),
+            )
+        )
+
+
+# Mimic shopee behavior
+# PROMOTION_TYPE.product and PROMOTION_TYPE.flashsale will apply discount on product instance
+# PROMOTION_TYPE.coupon and PROMOTION_TYPE.freeship will display as coupon for user to choose at checkout step
 
 
 class EcomPromotion(models.Model):
@@ -22,6 +41,9 @@ class EcomPromotion(models.Model):
     end_date = models.DateField(blank=False)
     is_active = models.BooleanField(default=False)
     can_stack = models.BooleanField(default=False)
+
+    objects = models.Manager()
+    active = PromotionActiveAndNotExpire()
 
     class Meta:
         db_table = "ecom_promotion"

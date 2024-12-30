@@ -3,7 +3,7 @@
 {% for menu in menu_list %}
     <li class="relative categoryItem">
         <div class="flexRowCenterBetween">
-            <a class="w-1/2" href="{% url 'ecommerce:product_page' %}?category={{ menu.name_slug|lower }}">
+            <a class="w-1/2" href="{% url 'ecommerce:product_page' %}{% if menu.name_slug %}?category={{ menu.name_slug|lower }}{% endif%}">
             <span class="uppercase w-1/2">
                 {{menu.display_name}}
             </span>

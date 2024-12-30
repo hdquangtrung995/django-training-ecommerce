@@ -11,6 +11,9 @@ module.exports = {
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
          */
 
+        /*  Include python file in form */
+        '../../ecommerce/forms/**/*.py',
+
         /*  Include javascript file in static folder & exclude jquery file */
         '../../static/**/*.js',
         '!../../static/js/jquery.min.js', 

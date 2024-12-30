@@ -3,7 +3,7 @@
 
 {% for menu in menu_list %}
     <li class="navigationHover categoryLink">
-        <a class="group/link" href="{% url 'ecommerce:product_page' %}?category={{ menu.name_slug|lower }}">
+        <a class="group/link" href="{% url 'ecommerce:product_page' %}{% if menu.name_slug %}?category={{ menu.name_slug|lower }}{% endif%}">
             <span class="group-hover/link:text-[var(--link-category-hover)]">{{menu.display_name}}</span> 
             {% if menu.sub_category %}
                 <i class="fa fa-angle-down fa-lg group-hover/link:text-[var(--link-category-hover)]"></i>

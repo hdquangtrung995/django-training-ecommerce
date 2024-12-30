@@ -22,10 +22,11 @@ class EcomProductVariant(models.Model):
 
     size = models.IntegerField(choices=SIZES, null=True, blank=True)
     color = models.CharField(max_length=50, null=True, blank=True)
+    color_hex = models.CharField(max_length=10, null=True, blank=True)
     sku = models.CharField(max_length=100, null=True, blank=True)
     stock = models.PositiveSmallIntegerField(default=0, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    gender = models.CharField(choices=GENDER, blank=False)
+    gender = models.IntegerField(choices=GENDER, blank=False)
     product = models.ForeignKey(
         EcomProducts, on_delete=models.CASCADE, related_name="variants"
     )
@@ -36,4 +37,4 @@ class EcomProductVariant(models.Model):
         verbose_name_plural = "product variants"
 
     def __str__(self):
-        return f"Product ID: {self.product} (id: {self.id})"
+        return f"Product ID: {self.product.name} (id: {self.id})"

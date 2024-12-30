@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Your cart
+{% endblock title %}
+
+{% block body-content %}
+
+{% with local_var=context_var %}
+
+<div class="mainBodyContenContainerResponsive grid grid-rows-1 md:grid-cols-7 gap-4 p-6">
+    <div class="md:col-span-4 p-4 bg-white rounded-md">
+        <div class="flexRowBetween border-b-2 pb-6">
+            <h3 class="capitalize text-xl"><strong>your cart:</strong></h3>
+            <span class="underline underline-offset-4">2 items</span>
+        </div>
+        <div id="cart-element-container" class="pt-4 h-full md:min-h-[50vh] flexCol gap-4">
+            <div id="loading" class="w-20 h-20 m-auto hidden"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
+        </div>
+    </div>
+
+    <div class="md:col-span-3 p-4 bg-white rounded-md">
+        <h3 class="capitalize text-xl pb-6"><strong>order detail:</strong></h3>
+        <div>
+            <span class="capitalize">estimate</span>
+            <span id="estimate-price" class="float-right">300.00k</span>
+        </div>
+        <div>
+            <span class="capitalize">discounted</span>
+            <span id="discounted-price" class="float-right"></span>
+        </div>
+        <div>
+            <span class="capitalize">delivery fee</span>
+            <span id="delivery-price" class="float-right"></span>
+            <span id="delivery-price-to-pay" class="text-right block" style="display: none;"></span>
+        </div>
+        <div>
+            <span class="capitalize">total</span>
+            <span id="totel-price" class="float-right"></span>
+            <span id="total-price-to-pay" class="text-right block" style="display: none;"></span>
+        </div>
+
+
+        <div class="py-4">
+            <h3 class="capitalize text-xl">
+                <img class="inline" src="https://file.hstatic.net/1000360022/file/fast-delivery_322f7fa602ff423a9f3adce662e8ad4d.png" width="30" height="30" >
+                <strong class="inline">Estimated delivery Fee:</strong>
+            </h3>
+            <form class="flexCol py-4 gap-4">
+                {% csrf_token %}
+                <div class="flexRow gap-4">
+                    <div class="w-full">
+                        <strong class="">{{form.province.label_tag}}</strong>
+                        <div class="has-[:disabled]:text-gray-300">{{form.province}}</div>
+                        {% if form.province.errors %}
+                            <ul class="error-messages">
+                                {% for error in form.old_password.errors %}
+                                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="w-full">
+                        <strong class="">{{form.district.label_tag}}</strong>
+                        <div class="has-[:disabled]:text-gray-300">{{form.district}}</div>
+                        {% if form.district.errors %}
+                            <ul class="error-messages">
+                                {% for error in form.old_password.errors %}
+                                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="w-full">
+                        <strong class="">{{form.ward.label_tag}}</strong>
+                        <div class="has-[:disabled]:text-gray-300">{{form.ward}}</div>
+                        {% if form.ward.errors %}
+                            <ul class="error-messages">
+                                {% for error in form.old_password.errors %}
+                                    <li class="text-red-500 pl-4 text-xs">* {{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <button id="submit-delivery-fee" type="button" class="w-full seeAllButton" disabled>
+                    <i class="fa fa-spinner fa-spin fa-2x text-black" style="display: none;"></i>
+                    <span>calculate fee</span>
+                </button>
+            </form>
+        </div>
+        
+
+        <div class="pb-4">
+            <h3 class="capitalize text-xl pb-4"><strong>order note:</strong></h3>
+            <div class="h-24 w-full p-2 border rounded-md">
+                <input id="order-note" type="text" class="w-full" placeholder="Note">
+            </div>
+        </div>
+
+        <div class="w-full p-2 border rounded-md mb-4">
+            <button id="" class="flexRowCenter gap-4" onclick="$('#promotion-list-detail').toggleClass('h-0 p-4')"><i class="fa fa-gift fa-2x"></i><strong class="capitalize"> apply promotions</strong></button>
+            <div id="promotion-list-detail" class="h-0 transition-all overflow-hidden">
+                <div class="w-full p-2 border rounded-md">
+                    <input id="promotion-code" type="text" class="w-full" placeholder="promotion code (if any)">
+                </div>
+                <div class="flexCol gap-2 p-4">
+                    <div id="free-ship-section" class="flexCol gap-2 relative overflow-hidden"></div>
+                    <div class="border border-gray-200 my-4"></div>
+                    <div id="coupon-section" class="flexCol gap-2 relative overflow-hidden"></div>
+                </div>
+                <button id="button-apply-promotion" class="float-right seeAllButton"><strong>apply</strong></button>
+            </div>
+        </div>
+
+        <button class="uppercase w-full mt-12 mb-8 text-center bg-black text-white py-2"><strong>place order</strong></button>
+        <a href="{% url 'ecommerce:product_page' %}" class="block w-full text-center hover:text-[#FB8500]">
+            <i class="fa fa-share fa-rotate-180" style="transform: scaleX(-1);"></i>
+            <span>continue shopping</span>
+        </a>
+    </div>
+
+    {{ coupon_promotions|json_script:"promotions-list" }}
+
+    <script type="module" type="text/javascript">
+        import CartItem from "{% static 'js/cart/cart-items.js' %}"
+        import PromotionCoupon from "{% static 'js/order-detail/promotion-coupon.js' %}"
+        import CalculatePromotionDiscount from "{% static 'js/promotion/index.js' %}"
+        import OrderDetail from "{% static 'js/order-detail/index.js' %}"
+
+        function onPromotionClick() {
+            $('#promotion-list-detail').toggleClass('h-0 p-4')
+        }
+        
+        $(document).ready(function() {
+            const cart = new Cart()
+            const cartUrl = "{% url 'ecommerce:your_cart' %}"
+            const orderDetail = new OrderDetail('{{csrf_token}}', cartUrl, cart, PromotionCoupon, CalculatePromotionDiscount)
+            const productDetailUrl = "{% url 'ecommerce:product_detail' slug="replaceMe" %}"
+
+            const onChange = (self) => {
+                orderDetail.handleProductUpdate(self)
+            }
+
+            const onRemove = (self) => {
+                orderDetail.handleProductRemove(self)
+            }
+
+            function fetchCartItem() {
+                $.ajax({
+                    url: cartUrl,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(cart.cartItems),
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    beforeSend: function() {
+                        $('#loading').toggleClass('hidden')
+                    },
+                    success: function(response) {
+                        $('#loading').toggleClass('hidden')
+                        orderDetail.render(response.map(item => new CartItem(CalculatePromotionDiscount, item, productDetailUrl, cart, onChange, onRemove)))
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Submission failed:", status, error);
+                        $('#loading').toggleClass('hidden')
+                    }
+                });
+            }
+
+            if (Object.keys(cart.cartItems).length) fetchCartItem()
+        })
+    </script>
+</div>
+
+{% endwith %}
+
+{% endblock body-content %}

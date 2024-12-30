@@ -4,6 +4,15 @@
     <ul class="flexRow gap-x-3 md:gap-x-8">
         {% if user.is_authenticated %}
             <li class="{{iconSize}}">
+                <a href="{% url 'ecommerce:your_account' %}" class="flexColCenter">
+                    <i class="fa fa-user" style="font-size: 24px;"></i>
+                    <span class="hidden md:block capitalize">profile</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <li class="{{iconSize}}">
                 <a href="{% url 'ecommerce:signout_account' %}" class="flexColCenter">
                     <i class="fa fa-sign-out" style="font-size: 24px;"></i>
                     <span class="hidden md:block capitalize">sign out</span>
@@ -20,7 +29,7 @@
             </li>
         {% endif %}
         <li class="{{iconSize}}">
-            <a href="/" class="flexColCenter">
+            <a href="{% url 'ecommerce:your_cart' %}" class="flexColCenter relative" data-cart-counter="0">
                 <img width="24" height="24"
                     src="//theme.hstatic.net/1000253775/1001291562/14/shopping-cart.svg?v=332"
                     alt="Your cart" />

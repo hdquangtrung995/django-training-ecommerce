@@ -68,12 +68,12 @@ Products Detail
                     </div>
                 </div>
 
-                <div>
+                <div id="color-input-container">
                     <span class="capitalize">color: <strong id="color-readable"></strong></span>
                     <div id="color-wrapper" class="flex flex-wrap gap-2 mt-2"></div>
                 </div>
 
-                <div>
+                <div id="size-input-container">
                     <span class="capitalize">size: <strong id="size-readable" class="uppercase"></strong></span>
                     <span class="capitalize ml-4">
                         <img class="inline" src="https://file.hstatic.net/200000525917/file/ruler-svg_74f5e49dbd8c4235a98dd991dcdfa38e.svg" width="15" height="15" >
@@ -102,10 +102,9 @@ Products Detail
                 {% endfor %}
             </ul>
         </div>
-        <div class="appearance-none w-4 h-4">hello</div>
     </div>
 
-    {{ product_detail.variants|json_script:'variants' }}
+    {{ product_detail|json_script:'product_detail' }}
     <script type="text/javascript" src="{% static 'js/detail-product/index.js' %}"></script>
 </section>
 

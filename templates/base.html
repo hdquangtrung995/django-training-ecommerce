@@ -19,7 +19,8 @@
 	{% block css_file %}{% endblock css_file %}
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+	<script src="{% static 'js/cart/index.js' %}"></script>
+	<script src="{% static 'js/utilities/index.js' %}"></script>
 </head>
 
 <body>
@@ -30,7 +31,7 @@
 
 		{% include "footer/index.html" %}
 	</main>
-	
+	<script type="text/javascript">new Cart()</script>
 </body>
 
 </html>

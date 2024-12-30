@@ -10,6 +10,14 @@ def find(condition, iterable):
     return next((item for item in iterable if condition(item)), None)
 
 
+def find_index(condition, iterable):
+    """
+    Find the index of the first element in 'iterable' that satisfies 'condition' function.
+    Returns -1 if no such element is found.
+    """
+    return next((i for i, item in enumerate(iterable) if condition(item)), -1)
+
+
 def generate_sku(length=8, prefix="", suffix=""):
     """
     Generate a random SKU.

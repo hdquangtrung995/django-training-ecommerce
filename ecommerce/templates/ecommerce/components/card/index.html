@@ -3,7 +3,8 @@
 {% with addToCartButtonCss="rounded-full border border-solid border-[--bg_button_add_to_cart] bg-[--bg_button_add_to_cart] text-white text-[12px] h-7 w-7 transition-all group-hover:w-[110px]" textGroupHoverCss="group-hover:visible group-hover:opacity-100 group-hover:w-max group-hover:pl-[10px]" %}
 
 <div class="w-full h-full flexCol p-2 bg-white rounded-lg">
-    <a href="{{data.slug}}">
+
+    <a href="{% url 'ecommerce:product_detail' data.slug %}">
         <div class="relative">
             {% if data.discounted_price %}
                 <span class="absolute top-0 right-0 mt-1 mr-1 p-1 rounded-lg bg-[#FFB41D] capitalize font-bold text-xs">sale</span>
